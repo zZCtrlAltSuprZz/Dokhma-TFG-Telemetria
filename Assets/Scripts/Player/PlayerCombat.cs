@@ -291,6 +291,9 @@ public class PlayerCombat : MonoBehaviour
         ammoInMagazine[weapon]--;
         UpdateAmmoHUD();
 
+        //Telemetry
+        GameTelemetryEvents.ShotFired(weapon.weaponName);
+
         weaponRecoil?.PlayRecoil();
 
         Transform shootPoint = GetFirePoint(weapon);
@@ -300,7 +303,7 @@ public class PlayerCombat : MonoBehaviour
 
         if (bulletScript != null)
         {
-            bulletScript.SetStats(weapon.bulletSpeed, GetFinalDamage(weapon.damage), KnockbackMultiplier, KnockbackTimeMultiplier);
+            bulletScript.SetStats(weapon.bulletSpeed, GetFinalDamage(weapon.damage), KnockbackMultiplier, KnockbackTimeMultiplier, weapon);
         }
 
         cameraShake?.Shake(0.06f, 0.8f, 10f);
@@ -315,6 +318,9 @@ public class PlayerCombat : MonoBehaviour
         {
             meleeAttack.TryMeleeAttack(weapon);
         }
+
+        //Telemetry
+        GameTelemetryEvents.MeleeAttackUsed(weapon.weaponName);
     }
 
     private Transform GetFirePoint(WeaponData weapon)

@@ -241,6 +241,9 @@ public class EnemyDamageReceiver : MonoBehaviour
 
         OnDeath?.Invoke();
 
+        // Telemetry
+        GameTelemetryEvents.EnemyKilled();
+
         if (deathFX != null)
         {
             Vector3 spawnPos = deathFXPoint != null ? deathFXPoint.position : transform.position;

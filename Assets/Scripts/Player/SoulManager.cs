@@ -39,6 +39,9 @@ public class SoulManager : MonoBehaviour
 
         if (scoreAnimator != null)
             scoreAnimator.SetTrigger("Pulse");
+
+        // Telemetry
+        GameTelemetryEvents.SoulsGained(amount);
     }
 
     public bool TrySpendSouls(int amount)
@@ -48,6 +51,9 @@ public class SoulManager : MonoBehaviour
 
         currentSouls -= amount;
         UpdateUI();
+
+        // Telemetry
+        GameTelemetryEvents.SoulsSpent(amount);
 
         if (scoreAnimator != null)
             scoreAnimator.SetTrigger("Pulse");

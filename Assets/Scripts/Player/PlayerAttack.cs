@@ -52,11 +52,7 @@ public class PlayerAttack : MonoBehaviour
 
         Vector3 center = transform.position + transform.forward * currentMeleeWeapon.forwardOffset;
 
-        Collider[] hits = Physics.OverlapSphere(
-            center,
-            currentMeleeWeapon.attackRange,
-            currentMeleeWeapon.enemyLayer
-        );
+        Collider[] hits = Physics.OverlapSphere( center, currentMeleeWeapon.attackRange, currentMeleeWeapon.enemyLayer);
 
         foreach (var hit in hits)
         {
@@ -71,12 +67,12 @@ public class PlayerAttack : MonoBehaviour
                 {
                     int finalDamage = combat.GetFinalDamage(currentMeleeWeapon.damage);
 
-                    enemy.SetKnockbackStats(
-                        combat.KnockbackMultiplier,
-                        combat.KnockbackTimeMultiplier
-                    );
+                    enemy.SetKnockbackStats(combat.KnockbackMultiplier, combat.KnockbackTimeMultiplier);
 
                     enemy.ApplyHit(finalDamage, hitDir);
+
+                    // Telemetry
+                    GameTelemetryEvents.MeleeHit(currentMeleeWeapon.weaponName, finalDamage);
                 }
                 else
                 {

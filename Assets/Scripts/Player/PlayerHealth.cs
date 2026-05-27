@@ -60,6 +60,9 @@ public class PlayerHealth : MonoBehaviour
         currentLives -= dmg;
         currentLives = Mathf.Clamp(currentLives, 0, maxLives);
 
+        // Telemetry
+        GameTelemetryEvents.PlayerDamaged(dmg, currentLives);
+
         if (damageFeedback != null)
         {
             damageFeedback.PlayDamageFeedback();
@@ -83,6 +86,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (damageFeedback != null)
             damageFeedback.ClearBloodSmooth();
+
+        // Telemetry
+        GameTelemetryEvents.PlayerHealed(maxLives, currentLives);
 
         if (showDebug)
             Debug.Log("Player fully healed");
@@ -136,6 +142,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (showDebug)
             Debug.Log("Quick Revive usado. Revives con " + currentLives + " vidas.");
+
+        // Telemetry
+        GameTelemetryEvents.PlayerRevived();
     }
 
     private void Die()
@@ -148,6 +157,9 @@ public class PlayerHealth : MonoBehaviour
 
         if (deathText != null)
             deathText.SetActive(true);
+
+        // Telemetry
+        GameTelemetryEvents.PlayerDied();
 
         Time.timeScale = 0f;
 

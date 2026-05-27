@@ -87,8 +87,11 @@ public class WaveManager : MonoBehaviour
 
         if (allSpawned && allDead && !spawningWave)
         {
+            // Telemetry
+            GameTelemetryEvents.WaveCompleted(currentWave);
             waveInProgress = false;
             StartCoroutine(BeginNextWaveAfterDelay());
+
         }
     }
 
@@ -123,6 +126,9 @@ public class WaveManager : MonoBehaviour
         UpdateWaveUI();
 
         Debug.Log($"Empieza ronda {currentWave}. Enemigos: {enemiesToSpawnThisWave}");
+
+        // Telemetry
+        GameTelemetryEvents.WaveStarted(currentWave);
 
         StartCoroutine(SpawnWaveRoutine());
     }
@@ -200,6 +206,9 @@ public class WaveManager : MonoBehaviour
             spawnPos = GetNormalEnemySpawnPosition();
 
         GameObject enemy = Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
+
+        // Telemetry
+        GameTelemetryEvents.EnemySpawned();
 
         enemiesSpawnedThisWave++;
         aliveEnemies++;

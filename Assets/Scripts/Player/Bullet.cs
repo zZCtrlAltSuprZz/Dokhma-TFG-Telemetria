@@ -9,6 +9,8 @@ public class Bullet : MonoBehaviour
     [SerializeField] private float radius = 0.12f;
     [SerializeField] private LayerMask hitMask = ~0;
 
+    private WeaponData sourceWeapon;
+
     private float currentSpeed;
     private Vector3 lastPosition;
 
@@ -34,14 +36,7 @@ public class Bullet : MonoBehaviour
         Vector3 direction = transform.forward;
         float distance = currentSpeed * Time.deltaTime;
 
-        if (Physics.SphereCast(
-            currentPosition,
-            radius,
-            direction,
-            out RaycastHit hit,
-            distance,
-            hitMask,
-            QueryTriggerInteraction.Ignore))
+        if (Physics.SphereCast(currentPosition, radius, direction, out RaycastHit hit, distance, hitMask, QueryTriggerInteraction.Ignore))
         {
             HandleHit(hit.collider);
             transform.position = hit.point;
@@ -57,12 +52,13 @@ public class Bullet : MonoBehaviour
         HandleHit(other);
     }
 
-    public void SetStats(float newSpeed, int newDamage, float newKnockbackMultiplier, float newKnockbackTimeMultiplier)
+    public void SetStats(float newSpeed, int newDamage, float newKnockbackMultiplier, float newKnockbackTimeMultiplier, WeaponData weapon)
     {
         currentSpeed = newSpeed;
         damage = newDamage;
         knockbackMultiplier = newKnockbackMultiplier;
         knockbackTimeMultiplier = newKnockbackTimeMultiplier;
+        sourceWeapon = weapon;
     }
 
     private void HandleHit(Collider other)
@@ -77,6 +73,9 @@ public class Bullet : MonoBehaviour
         {
             enemy.SetKnockbackStats(knockbackMultiplier, knockbackTimeMultiplier);
             enemy.ApplyHit(damage, transform.forward);
+
+            //Telemetry
+            GameTelemetryEvents.ShotHit(sourceWeapon.weaponName, damage);
             Destroy(gameObject);
             return;
         }
