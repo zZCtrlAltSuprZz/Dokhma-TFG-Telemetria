@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa21dfa03c5dff34a8d2cce133c12ef8, type: 3}
+  m_Name: DoubleTap
+  m_EditorClassIdentifier: 
+  perkName: Double Tap
+  description: Double the damage dealed
+  iconNormal: {fileID: 21300000, guid: 108ed67cc3cf201458990bb67de19259, type: 3}
+  iconHover: {fileID: 21300000, guid: 5032e0313039461438ec31c9ff565660, type: 3}
+  perkType: 2

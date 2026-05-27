@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc431743efcc984787dfcef4ac8acf8, type: 3}
+  m_Name: Pistol
+  m_EditorClassIdentifier: 
+  weaponType: 0
+  weaponName: Pistol
+  hudText: PISTOL
+  attackMode: 0
+  automatic: 0
+  bulletPrefab: {fileID: 5602171604859375310, guid: 4d5f6dc75ed38e248b7438add143f922, type: 3}
+  bulletSpeed: 17
+  fireRate: 0.2
+  magazineSize: 8
+  reserveAmmo: 70
+  reloadTime: 1
+  attackCooldown: 0.5
+  attackRange: 1.5
+  damage: 2
+  forwardOffset: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  useVFXPrefab: {fileID: 1069439422746091453, guid: e1980173590eabf4d9b9f8be3fe1273c, type: 3}
+  vfxLifetime: 1
+  attachVFXToFirePoint: 1
+  usesPistolPose: 1

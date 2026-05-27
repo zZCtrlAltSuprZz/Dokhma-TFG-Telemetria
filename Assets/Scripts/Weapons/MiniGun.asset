@@ -1,0 +1,36 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fc431743efcc984787dfcef4ac8acf8, type: 3}
+  m_Name: MiniGun
+  m_EditorClassIdentifier: 
+  weaponType: 2
+  weaponName: MiniGun
+  hudText: MACHINEGUN
+  attackMode: 0
+  automatic: 1
+  bulletPrefab: {fileID: 5602171604859375310, guid: 4d5f6dc75ed38e248b7438add143f922, type: 3}
+  bulletSpeed: 25
+  fireRate: 0.08
+  magazineSize: 50
+  reserveAmmo: 150
+  reloadTime: 2.6
+  attackCooldown: 0.5
+  attackRange: 1.5
+  damage: 1
+  forwardOffset: 1
+  enemyLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  useVFXPrefab: {fileID: 1069439422746091453, guid: 3c49b94d365275345ada00271f75b0f1, type: 3}
+  vfxLifetime: 1
+  attachVFXToFirePoint: 1
+  usesPistolPose: 1

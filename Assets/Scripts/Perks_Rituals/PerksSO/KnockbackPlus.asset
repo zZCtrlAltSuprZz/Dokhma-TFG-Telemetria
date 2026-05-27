@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa21dfa03c5dff34a8d2cce133c12ef8, type: 3}
+  m_Name: KnockbackPlus
+  m_EditorClassIdentifier: 
+  perkName: KnockBackPlus
+  description: More knockback to enemies
+  iconNormal: {fileID: 21300000, guid: 42de6af404f2d634ab1323b159cf9a77, type: 3}
+  iconHover: {fileID: 21300000, guid: b0826a7a955140e4f8c172f3bdff2c0d, type: 3}
+  perkType: 3
