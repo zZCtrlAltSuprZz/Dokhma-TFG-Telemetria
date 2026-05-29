@@ -22,6 +22,16 @@ public static class GameTelemetryEvents
     public static event Action<int> OnSoulsGained;
     public static event Action<int> OnSoulsSpent;
 
+    public static event Action OnWeaponChestOpened;
+    public static event Action<string> OnWeaponObtained;
+    public static event Action<string> OnWeaponSwitched;
+
+    public static event Action<string> OnRoomUnlocked;
+
+    public static event Action<string> OnRitualStarted;
+    public static event Action<string> OnRitualCompleted;
+    public static event Action<string> OnPerkChosen;
+
     public static void PlayerDamaged(int damage, int currentHealth) => OnPlayerDamaged?.Invoke(damage, currentHealth);
 
     public static void PlayerDied() => OnPlayerDied?.Invoke();
@@ -49,4 +59,18 @@ public static class GameTelemetryEvents
     public static void SoulsGained(int amount) => OnSoulsGained?.Invoke(amount);
 
     public static void SoulsSpent(int amount) => OnSoulsSpent?.Invoke(amount);
+
+    public static void WeaponChestOpened() => OnWeaponChestOpened?.Invoke();
+
+    public static void WeaponObtained(string weaponName) => OnWeaponObtained?.Invoke(weaponName);
+
+    public static void WeaponSwitched(string weaponName) => OnWeaponSwitched?.Invoke(weaponName);
+
+    public static void RoomUnlocked(string roomName) => OnRoomUnlocked?.Invoke(roomName);
+
+    public static void RitualStarted(string ritualName) => OnRitualStarted?.Invoke(ritualName);
+
+    public static void RitualCompleted(string ritualName) => OnRitualCompleted?.Invoke(ritualName);
+
+    public static void PerkChosen(string perkName) => OnPerkChosen?.Invoke(perkName);
 }
