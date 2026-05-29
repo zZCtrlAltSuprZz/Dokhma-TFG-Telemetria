@@ -12,9 +12,10 @@ public static class GameTelemetryEvents
     public static event Action<string, int> OnShotHit;
     public static event Action<string> OnMeleeAttackUsed;
     public static event Action<string, int> OnMeleeHit;
+    public static event Action<string, int, int> OnMeleeSuccessfulAttack;
 
     public static event Action OnEnemySpawned;
-    public static event Action OnEnemyKilled;
+    public static event Action<EnemyType> OnEnemyKilled;
 
     public static event Action<int> OnWaveStarted;
     public static event Action<int> OnWaveCompleted;
@@ -50,7 +51,7 @@ public static class GameTelemetryEvents
 
     public static void EnemySpawned() => OnEnemySpawned?.Invoke();
 
-    public static void EnemyKilled() => OnEnemyKilled?.Invoke();
+    public static void EnemyKilled(EnemyType enemyType) => OnEnemyKilled?.Invoke(enemyType);
 
     public static void WaveStarted(int waveNumber) => OnWaveStarted?.Invoke(waveNumber);
 
@@ -73,4 +74,7 @@ public static class GameTelemetryEvents
     public static void RitualCompleted(string ritualName) => OnRitualCompleted?.Invoke(ritualName);
 
     public static void PerkChosen(string perkName) => OnPerkChosen?.Invoke(perkName);
+
+    public static void MeleeSuccessfulAttack(string weaponName, int enemiesHit, int totalDamage) => OnMeleeSuccessfulAttack?.Invoke(weaponName, enemiesHit, totalDamage);
+
 }

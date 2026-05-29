@@ -6,7 +6,7 @@ using UnityEngine.AI;
 [RequireComponent(typeof(Rigidbody))]
 public class EnemyDamageReceiver : MonoBehaviour
 {
-    [Header("Stats")]
+    [Header("Health")]
     [SerializeField] private float maxHealth = 5f;
     private float currentHealth;
 
@@ -38,6 +38,10 @@ public class EnemyDamageReceiver : MonoBehaviour
     [SerializeField] private Transform hitFXPoint;
     [SerializeField] private float hitFXLifetime = 2f;
 
+    [SerializeField] private EnemyType enemyType;
+    public EnemyType EnemyType => enemyType;
+
+
     public event Action OnDeath;
     public event Action OnHitStart;
     public event Action OnHitEnd;
@@ -53,6 +57,8 @@ public class EnemyDamageReceiver : MonoBehaviour
 
     private Renderer[] renderers;
     private Material[][] originalMaterials;
+
+
 
     private void Awake()
     {
@@ -242,8 +248,7 @@ public class EnemyDamageReceiver : MonoBehaviour
         OnDeath?.Invoke();
 
         // Telemetry
-        GameTelemetryEvents.EnemyKilled();
-
+        GameTelemetryEvents.EnemyKilled(enemyType);
         if (deathFX != null)
         {
             Vector3 spawnPos = deathFXPoint != null ? deathFXPoint.position : transform.position;

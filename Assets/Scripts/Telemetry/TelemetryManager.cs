@@ -10,7 +10,7 @@ public class TelemetryManager : MonoBehaviour
     [SerializeField] private bool printWaveSummary = true;
 
     [Header("Damage Pressure")]
-    [SerializeField] private float damageStreakWindowSeconds = 2f;
+    [SerializeField] private float recoveryWindow => playerHealth.HealDelay;
 
     [Header("References")]
     [SerializeField] private PlayerHealth playerHealth;
@@ -49,7 +49,7 @@ public class TelemetryManager : MonoBehaviour
         GameTelemetryEvents.OnShotHit += HandleShotHit;
 
         GameTelemetryEvents.OnMeleeAttackUsed += HandleMeleeAttackUsed;
-        GameTelemetryEvents.OnMeleeHit += HandleMeleeHit;
+        GameTelemetryEvents.OnMeleeSuccessfulAttack += HandleMeleeSuccessfulAttack;
 
         GameTelemetryEvents.OnSoulsGained += HandleSoulsGained;
         GameTelemetryEvents.OnSoulsSpent += HandleSoulsSpent;
@@ -82,7 +82,7 @@ public class TelemetryManager : MonoBehaviour
         GameTelemetryEvents.OnShotHit -= HandleShotHit;
 
         GameTelemetryEvents.OnMeleeAttackUsed -= HandleMeleeAttackUsed;
-        GameTelemetryEvents.OnMeleeHit -= HandleMeleeHit;
+        GameTelemetryEvents.OnMeleeSuccessfulAttack -= HandleMeleeSuccessfulAttack;
 
         GameTelemetryEvents.OnSoulsGained -= HandleSoulsGained;
         GameTelemetryEvents.OnSoulsSpent -= HandleSoulsSpent;
@@ -132,16 +132,26 @@ public class TelemetryManager : MonoBehaviour
         currentWaveData.enemiesSpawned++;
     }
 
-    private void HandleEnemyKilled()
+    private void HandleEnemyKilled(EnemyType enemyType)
     {
         if (currentWaveData == null) return;
         currentWaveData.enemiesKilled++;
+
+        switch(enemyType)
+        {
+            case EnemyType.Melee:
+                currentWaveData.meleeEnemiesKilled++;
+                break;
+            case EnemyType.Ranged:
+                currentWaveData.rangedEnemiesKilled++;
+                break;
+        }
     }
 
     private void HandlePlayerDamaged(int damage, int currentHealth)
     {
         if (currentWaveData == null) return;
-        currentWaveData.RegisterDamageEvent(damage, damageStreakWindowSeconds);
+        currentWaveData.RegisterDamageEvent(damage, recoveryWindow);
     }
 
     private void HandlePlayerDied()
@@ -172,6 +182,7 @@ public class TelemetryManager : MonoBehaviour
     {
         if (currentWaveData == null) return;
         currentWaveData.shotsHit++;
+        currentWaveData.rangedDamageDealt += damage;
         currentWaveData.damageDealt += damage;
     }
 
@@ -181,10 +192,15 @@ public class TelemetryManager : MonoBehaviour
         currentWaveData.meleeAttacksUsed++;
     }
 
-    private void HandleMeleeHit(string weaponName, int damage)
+  
+
+    private void HandleMeleeSuccessfulAttack(string weaponName, int enemiesHit, int damage)
     {
         if (currentWaveData == null) return;
-        currentWaveData.meleeHits++;
+
+        currentWaveData.meleeSuccessfulAttacks++;
+        currentWaveData.meleeEnemiesHit += enemiesHit;
+        currentWaveData.meleeDamageDealt += damage;
         currentWaveData.damageDealt += damage;
     }
 

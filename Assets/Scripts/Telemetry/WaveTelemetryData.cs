@@ -30,7 +30,10 @@ public class WaveTelemetryData
     public int shotsFired;
     public int shotsHit;
     public int meleeAttacksUsed;
-    public int meleeHits;
+    public int meleeSuccessfulAttacks;
+    public int meleeEnemiesHit;
+    public int meleeDamageDealt;
+    public int rangedDamageDealt;
     public int damageDealt;
 
     [Header("Weapons")]
@@ -57,6 +60,24 @@ public class WaveTelemetryData
         {
             if (shotsFired <= 0) return 0f;
             return (float)shotsHit / shotsFired;
+        }
+    }
+
+    public float MeleeAccuracy
+    {
+        get
+        {
+            if (meleeAttacksUsed <= 0) return 0f;
+            return (float)meleeSuccessfulAttacks / meleeAttacksUsed;
+        }
+    }
+
+    public float AverageEnemiesHitPerMelee
+    {
+        get
+        {
+            if (meleeAttacksUsed <= 0) return 0f;
+            return (float)meleeEnemiesHit / meleeAttacksUsed;
         }
     }
 
@@ -125,35 +146,55 @@ public class WaveTelemetryData
     public string GetSummary()
     {
         return
-            $"--- TELEMETRÍA OLEADA {waveNumber} ---\n" +
+            $"============================\n" +
+            $"TELEMETRÍA OLEADA {waveNumber}\n" +
+            $"============================\n\n" +
+
+            // PROGRESIÓN
+            $"[PROGRESIÓN]\n" +
             $"Duración: {waveDuration:F2}s\n" +
-            $"Enemigos generados: {enemiesSpawned}\n" +
-            $"Enemigos eliminados: {enemiesKilled}\n" +
-            $"Melee eliminados: {meleeEnemiesKilled}\n" +
-            $"Ranged eliminados: {rangedEnemiesKilled}\n" +
+            $"Salas desbloqueadas: {roomsUnlocked}\n" +
+            $"Rituales iniciados: {ritualsStarted}\n" +
+            $"Rituales completados: {ritualsCompleted}\n" +
+            $"Perks elegidos: {perksChosen}\n\n" +
+
+            // COMBATE
+            $"[COMBATE]\n" +
+            $"Enemigos eliminados: {enemiesKilled}/{enemiesSpawned}\n" +
+            $"   - Melee: {meleeEnemiesKilled}\n" +
+            $"   - Ranged: {rangedEnemiesKilled}\n" +
+            $"Kills por segundo: {KillRate:F2}\n\n" +
+
+            $"Disparos realizados: {shotsFired}\n" +
+            $"Impactos realizados: {shotsHit}\n" +
+            $"Precisión disparos: {Accuracy * 100f:F1}%\n\n" +
+
+            $"Ataques melee realizados: {meleeAttacksUsed}\n" +
+            $"Uso de melee: {MeleeUseRatio * 100f:F1}%\n" +
+            $"Precisión melee: {MeleeAccuracy * 100f:F1}%\n\n" +
+
+            $"Daño total infligido: {damageDealt}\n" +
+            $"   - A distancia: {rangedDamageDealt}\n" +
+            $"   - Melee: {meleeDamageDealt}\n\n" +
+
+            $"Cambios de arma: {weaponSwitches}\n" +
+
+            // SUPERVIVENCIA
+            $"\n[SUPERVIVENCIA]\n" +
             $"Daño recibido: {damageTaken}\n" +
             $"Golpes recibidos: {damageEvents}\n" +
             $"Racha máxima de daño: {maxDamageStreak}\n" +
             $"Regeneraciones automáticas: {automaticHeals}\n" +
             $"Muertes: {playerDeaths}\n" +
             $"Revives: {playerRevives}\n" +
-            $"Disparos: {shotsFired}\n" +
-            $"Impactos: {shotsHit}\n" +
-            $"Precisión: {Accuracy * 100f:F1}%\n" +
-            $"Melee usados: {meleeAttacksUsed}\n" +
-            $"Melee impactos: {meleeHits}\n" +
-            $"Ratio melee: {MeleeUseRatio * 100f:F1}%\n" +
-            $"Daño infligido: {damageDealt}\n" +
+            $"Vida final: {playerHealthEnd}\n" +
+            $"Pressure Score: {PressureScore:F1}\n\n" +
+
+            // ECONOMÍA
+            $"[ECONOMÍA]\n" +
             $"Almas ganadas: {soulsGained}\n" +
             $"Almas gastadas: {soulsSpent}\n" +
             $"Cofres abiertos: {weaponChestsOpened}\n" +
-            $"Armas obtenidas: {weaponsObtained}\n" +
-            $"Cambios de arma: {weaponSwitches}\n" +
-            $"Salas desbloqueadas: {roomsUnlocked}\n" +
-            $"Rituales iniciados: {ritualsStarted}\n" +
-            $"Rituales completados: {ritualsCompleted}\n" +
-            $"Perks elegidos: {perksChosen}\n" +
-            $"Vida final: {playerHealthEnd}\n" +
-            $"Pressure Score: {PressureScore:F1}";
+            $"Armas obtenidas: {weaponsObtained}";
     }
 }

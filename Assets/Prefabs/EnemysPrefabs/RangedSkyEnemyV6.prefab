@@ -1995,6 +1995,7 @@ MonoBehaviour:
   hitFX: {fileID: 5880797563127281583, guid: ec2a77bfd2d29ca4eb2c8dd0140f0448, type: 3}
   hitFXPoint: {fileID: 2032103405910672008}
   hitFXLifetime: 2
+  enemyType: 1
 --- !u!114 &214678393497853295
 MonoBehaviour:
   m_ObjectHideFlags: 0

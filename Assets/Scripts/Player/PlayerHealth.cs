@@ -10,6 +10,7 @@ public class PlayerHealth : MonoBehaviour
 
     public bool IsDeadOrReviving => isDeadOrReviving;
     public int CurrentLives => currentLives;
+    public float HealDelay => healDelay;
     public bool IsAlive => !isDeadOrReviving && currentLives > 0;
 
     [Header("Disable On Death")]

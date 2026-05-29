@@ -51,8 +51,10 @@ public class PlayerAttack : MonoBehaviour
         cameraShake?.Shake(0.06f, 1f, 15f);
 
         Vector3 center = transform.position + transform.forward * currentMeleeWeapon.forwardOffset;
-
         Collider[] hits = Physics.OverlapSphere( center, currentMeleeWeapon.attackRange, currentMeleeWeapon.enemyLayer);
+
+        int enemiesHitThisAttack = 0;
+        int totalDamageThisAttack = 0;
 
         foreach (var hit in hits)
         {
@@ -68,19 +70,21 @@ public class PlayerAttack : MonoBehaviour
                     int finalDamage = combat.GetFinalDamage(currentMeleeWeapon.damage);
 
                     enemy.SetKnockbackStats(combat.KnockbackMultiplier, combat.KnockbackTimeMultiplier);
-
                     enemy.ApplyHit(finalDamage, hitDir);
 
-                    // Telemetry
-                    GameTelemetryEvents.MeleeHit(currentMeleeWeapon.weaponName, finalDamage);
+                    enemiesHitThisAttack++;
+                    totalDamageThisAttack += finalDamage;
                 }
                 else
                 {
                     Debug.LogWarning("PlayerCombat no encontrado");
-
-                    enemy.ApplyHit(currentMeleeWeapon.damage, hitDir);
                 }
             }
+        }
+
+        if (enemiesHitThisAttack > 0)
+        {
+            GameTelemetryEvents.MeleeSuccessfulAttack(currentMeleeWeapon.weaponName, enemiesHitThisAttack, totalDamageThisAttack);
         }
     }
 
