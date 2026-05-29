@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float healDelay = 3f;
 
     public bool IsDeadOrReviving => isDeadOrReviving;
+    public int CurrentLives => currentLives;
     public bool IsAlive => !isDeadOrReviving && currentLives > 0;
 
     [Header("Disable On Death")]
