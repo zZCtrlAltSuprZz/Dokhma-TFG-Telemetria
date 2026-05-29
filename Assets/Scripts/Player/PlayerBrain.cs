@@ -134,9 +134,6 @@ public class PlayerBrain : MonoBehaviour
 
         if (animator != null)
             animator.SetBool(isPistolBool, weapon.usesPistolPose);
-
-        if (showDebug)
-            Debug.Log("Visuales actualizados para: " + weapon.weaponName);
     }
 
     private void OnDestroy()

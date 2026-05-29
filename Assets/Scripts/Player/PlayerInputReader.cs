@@ -88,8 +88,6 @@ public class PlayerInputReader : MonoBehaviour
 
         EnableActions();
 
-        if (showDebug)
-            Debug.Log("Input configurado correctamente (teclado + mando)");
     }
 
     private void HandleFirePerformed(InputAction.CallbackContext context)

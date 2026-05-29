@@ -172,11 +172,6 @@ public class PlayerCombat : MonoBehaviour
             animator.SetBool(pistolBool, weapon.usesPistolPose);
         }
 
-        if (showDebug)
-        {
-            Debug.Log("Cambiando visual a: " + weapon.weaponName);
-        }
-
         OnWeaponChanged?.Invoke(weapon);
         InitAmmo(weapon);
         UpdateAmmoHUD();

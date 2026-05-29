@@ -123,6 +123,14 @@ public class TelemetryManager : MonoBehaviour
             Debug.Log(currentWaveData.GetSummary());
         }
 
+        PlayerProfile profile = PlayerProfileAnalyzer.Analyze(currentWaveData);
+        Debug.Log($"Player Profile for Wave {waveNumber}: {profile}");
+
+        if (DifficultyManager.Instance != null)
+        {
+            DifficultyManager.Instance.UpdateDifficulty(profile);
+        }
+
         currentWaveData = null;
     }
 

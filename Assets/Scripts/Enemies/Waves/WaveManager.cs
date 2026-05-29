@@ -97,7 +97,9 @@ public class WaveManager : MonoBehaviour
 
     private IEnumerator BeginNextWaveAfterDelay()
     {
-        yield return new WaitForSeconds(timeBetweenWaves);
+        float restMultiplier = DifficultyManager.Instance != null ? DifficultyManager.Instance.CurrentSettings.restTimeMultiplier : 1f;
+
+        yield return new WaitForSeconds(timeBetweenWaves * restMultiplier);
         StartNextWave();
     }
 
@@ -109,11 +111,13 @@ public class WaveManager : MonoBehaviour
 
         if (currentWaveConfig == null)
         {
-            Debug.LogWarning("No hay configuración para esta ronda.");
+            Debug.LogError("No hay configuración para la ronda " + currentWave);
             return;
         }
 
-        BuildSpawnQueue(currentWaveConfig);
+        WaveConfig adjustedConfig = CreateAdjustedWaveConfig(currentWaveConfig);
+        BuildSpawnQueue(adjustedConfig);
+        currentWaveConfig = adjustedConfig;
 
         enemiesToSpawnThisWave = spawnQueue.Count;
         enemiesSpawnedThisWave = 0;
@@ -132,7 +136,41 @@ public class WaveManager : MonoBehaviour
 
         StartCoroutine(SpawnWaveRoutine());
     }
+    private WaveConfig CreateAdjustedWaveConfig(WaveConfig baseConfig)
+    {
+        DifficultySettings settings = DifficultyManager.Instance != null ? DifficultyManager.Instance.CurrentSettings : new DifficultySettings();
 
+        WaveConfig adjusted = new WaveConfig
+        {
+            waveName = baseConfig.waveName,
+            maxAliveEnemies = Mathf.Max(1, Mathf.RoundToInt(baseConfig.maxAliveEnemies * settings.maxAliveMultiplier)),
+            spawnInterval = Mathf.Max(0.1f, baseConfig.spawnInterval * settings.spawnIntervalMultiplier),
+            maxSpawnDistanceToPlayer = baseConfig.maxSpawnDistanceToPlayer,
+            minSpawnDistanceToPlayer = baseConfig.minSpawnDistanceToPlayer,
+            rangedSpawnRadiusAroundPlayer = baseConfig.rangedSpawnRadiusAroundPlayer
+        };
+
+        if (baseConfig.enemies != null)
+        {
+            adjusted.enemies = new WaveEnemyEntry[baseConfig.enemies.Length];
+
+            for (int i = 0; i < baseConfig.enemies.Length; i++)
+            {
+                WaveEnemyEntry baseEntry = baseConfig.enemies[i];
+
+                adjusted.enemies[i] = new WaveEnemyEntry
+                {
+                    enemyName = baseEntry.enemyName,
+                    enemyPrefab = baseEntry.enemyPrefab,
+                    amount = Mathf.Max(1, Mathf.RoundToInt(baseEntry.amount * settings.enemyCountMultiplier))
+                };
+            }
+        }
+
+        Debug.Log( $"[DDA] Wave {baseConfig.waveName}\n" + $"MaxAlive: {baseConfig.maxAliveEnemies} -> {adjusted.maxAliveEnemies}\n" + $"SpawnInterval: {baseConfig.spawnInterval} -> {adjusted.spawnInterval}");
+
+        return adjusted;
+    }
     private WaveConfig GetWaveConfig(int waveNumber)
     {
         if (waves == null || waves.Length == 0)
