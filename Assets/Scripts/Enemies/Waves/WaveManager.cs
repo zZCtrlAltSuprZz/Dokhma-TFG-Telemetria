@@ -167,7 +167,7 @@ public class WaveManager : MonoBehaviour
             }
         }
 
-        Debug.Log( $"[DDA] Wave {baseConfig.waveName}\n" + $"MaxAlive: {baseConfig.maxAliveEnemies} -> {adjusted.maxAliveEnemies}\n" + $"SpawnInterval: {baseConfig.spawnInterval} -> {adjusted.spawnInterval}");
+        Debug.Log( $"[DDA]  {baseConfig.waveName}\n" + $"MaxAlive: {baseConfig.maxAliveEnemies} -> {adjusted.maxAliveEnemies}\n" + $"SpawnInterval: {baseConfig.spawnInterval} -> {adjusted.spawnInterval}");
 
         return adjusted;
     }
