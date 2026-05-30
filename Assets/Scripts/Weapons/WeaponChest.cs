@@ -94,8 +94,8 @@ public class WeaponChest : MonoBehaviour
             inputReader.OnInteractPressed += HandleInteractPressed;
             subscribedToInput = true;
 
-            if (showDebug)
-                Debug.Log("Chest connected to player input.");
+          //  if (showDebug)
+            //    Debug.Log("Chest connected to player input.");
         }
 
         UpdateInteractionText();
@@ -165,8 +165,8 @@ public class WeaponChest : MonoBehaviour
         if (animator != null)
             animator.SetTrigger(openTrigger);
 
-        if (showDebug)
-            Debug.Log("Opening chest...");
+        //if (showDebug)
+           // Debug.Log("Opening chest...");
     }
 
     public void OnChestOpenAnimationFinished()
@@ -181,8 +181,8 @@ public class WeaponChest : MonoBehaviour
 
         UpdateInteractionText();
 
-        if (showDebug && currentReward != null)
-            Debug.Log("Weapon ready to pick up: " + currentReward.weaponName);
+       // if (showDebug && currentReward != null)
+         //   Debug.Log("Weapon ready to pick up: " + currentReward.weaponName);
     }
 
     private void TryCollectReward()
@@ -198,8 +198,8 @@ public class WeaponChest : MonoBehaviour
             return;
         }
 
-        if (showDebug)
-            Debug.Log("Picked up: " + currentReward.weaponName);
+       // if (showDebug)
+         //   Debug.Log("Picked up: " + currentReward.weaponName);
 
         CloseChest();
     }
@@ -216,8 +216,8 @@ public class WeaponChest : MonoBehaviour
 
         UpdateInteractionText();
 
-        if (showDebug)
-            Debug.Log("Chest closed.");
+      //  if (showDebug)
+        //    Debug.Log("Chest closed.");
     }
 
     private List<WeaponData> GetNotOwnedWeapons()

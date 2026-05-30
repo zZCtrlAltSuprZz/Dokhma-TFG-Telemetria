@@ -98,8 +98,11 @@ public class WaveManager : MonoBehaviour
     private IEnumerator BeginNextWaveAfterDelay()
     {
         float restMultiplier = DifficultyManager.Instance != null ? DifficultyManager.Instance.CurrentSettings.restTimeMultiplier : 1f;
+        float finalRestTime = timeBetweenWaves * restMultiplier;
+        
+        Debug.Log($"[DDA] RestTime: {timeBetweenWaves:F2}s x {restMultiplier:F2} = {finalRestTime:F2}s");
 
-        yield return new WaitForSeconds(timeBetweenWaves * restMultiplier);
+        yield return new WaitForSeconds(finalRestTime);
         StartNextWave();
     }
 
@@ -129,8 +132,6 @@ public class WaveManager : MonoBehaviour
 
         UpdateWaveUI();
 
-        Debug.Log($"Empieza ronda {currentWave}. Enemigos: {enemiesToSpawnThisWave}");
-
         // Telemetry
         GameTelemetryEvents.WaveStarted(currentWave);
 
@@ -157,17 +158,28 @@ public class WaveManager : MonoBehaviour
             for (int i = 0; i < baseConfig.enemies.Length; i++)
             {
                 WaveEnemyEntry baseEntry = baseConfig.enemies[i];
+                int adjustedAmount = Mathf.Max(1, Mathf.RoundToInt(baseEntry.amount * settings.enemyCountMultiplier));
 
                 adjusted.enemies[i] = new WaveEnemyEntry
                 {
                     enemyName = baseEntry.enemyName,
                     enemyPrefab = baseEntry.enemyPrefab,
-                    amount = Mathf.Max(1, Mathf.RoundToInt(baseEntry.amount * settings.enemyCountMultiplier))
+                    amount = adjustedAmount
                 };
+
             }
         }
 
-        Debug.Log( $"[DDA]  {baseConfig.waveName}\n" + $"MaxAlive: {baseConfig.maxAliveEnemies} -> {adjusted.maxAliveEnemies}\n" + $"SpawnInterval: {baseConfig.spawnInterval} -> {adjusted.spawnInterval}");
+        int originalEnemyCount = GetTotalEnemyAmount(baseConfig);
+        int adjustedEnemyCount = GetTotalEnemyAmount(adjusted);
+
+        Debug.Log(
+            $"[DDA] {baseConfig.waveName}\n" +
+            $"Total Enemies: {originalEnemyCount} x {settings.enemyCountMultiplier:F2} = {adjustedEnemyCount}\n" +
+            $"MaxAlive: {baseConfig.maxAliveEnemies} x {settings.maxAliveMultiplier:F2} = {adjusted.maxAliveEnemies}\n" +
+            $"SpawnInterval: {baseConfig.spawnInterval:F2}s x {settings.spawnIntervalMultiplier:F2} = {adjusted.spawnInterval:F2}s\n" +
+            $"RestTime: {timeBetweenWaves:F2}s x {settings.restTimeMultiplier:F2}"
+        );
 
         return adjusted;
     }
@@ -338,6 +350,22 @@ public class WaveManager : MonoBehaviour
         }
 
         Debug.LogWarning("El enemigo spawneado no tiene SimpleEnemy ni RangedSkyEnemy.");
+    }
+
+    private int GetTotalEnemyAmount(WaveConfig config)
+    {
+        if (config == null || config.enemies == null)
+            return 0;
+
+        int total = 0;
+
+        foreach (WaveEnemyEntry entry in config.enemies)
+        {
+            if (entry == null) continue;
+            total += Mathf.Max(0, entry.amount);
+        }
+
+        return total;
     }
 
     public void SetCurrentZone(GameZone zone)
