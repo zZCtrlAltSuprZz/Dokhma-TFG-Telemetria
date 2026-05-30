@@ -4850,6 +4850,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bbc95a6472d52c8478972e562b8d78dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentMode: 1
 --- !u!4 &1027621066
 Transform:
   m_ObjectHideFlags: 0
@@ -8827,7 +8828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 182bc9349ce0b1443ac86213b91d243c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zone: 2
+  zone: 3
   waveManager: {fileID: 1182457511}
 --- !u!65 &1760720528
 BoxCollider:

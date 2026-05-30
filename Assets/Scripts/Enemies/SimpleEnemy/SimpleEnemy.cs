@@ -15,7 +15,7 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
     public float stopDistance = 2f;
     public float resumeDistance = 2.3f;
 
-    [SerializeField] private float repathRate = 0.2f;
+    [SerializeField] private float repathRate = 0.1f;
     private float nextRepathTime;
 
     [Header("Attack")]
@@ -79,6 +79,7 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
         agent.stoppingDistance = stopDistance;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
         agent.avoidancePriority = UnityEngine.Random.Range(20, 80);
+        agent.autoRepath = true;
 
         damageReceiver.OnDeath += HandleDeath;
         damageReceiver.OnHitStart += HandleHitStart;
@@ -164,8 +165,7 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
         if (!agent.enabled || !agent.isOnNavMesh || player == null) return;
 
         agent.isStopped = false;
-        agent.speed = speed;
-        agent.stoppingDistance = stopDistance;
+        
 
         if (Time.time >= nextRepathTime)
         {

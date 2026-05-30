@@ -9,17 +9,25 @@ public class TelemetryManager : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool printWaveSummary = true;
 
-    [Header("Damage Pressure")]
-    [SerializeField] private float recoveryWindow => playerHealth.HealDelay;
-
     [Header("References")]
     [SerializeField] private PlayerHealth playerHealth;
+
+    public IReadOnlyList<WaveTelemetryData> CompletedWaves => completedWaves;
+    public WaveTelemetryData CurrentWaveData => currentWaveData;
 
     private WaveTelemetryData currentWaveData;
     private readonly List<WaveTelemetryData> completedWaves = new();
 
-    public IReadOnlyList<WaveTelemetryData> CompletedWaves => completedWaves;
-    public WaveTelemetryData CurrentWaveData => currentWaveData;
+   
+
+    private float RecoveryWindow
+    {
+        get
+        {
+            return playerHealth != null ? playerHealth.HealDelay : 4f;
+        }
+    }
+
 
     private void Awake()
     {
@@ -131,6 +139,8 @@ public class TelemetryManager : MonoBehaviour
             DifficultyManager.Instance.UpdateDifficulty(profile);
         }
 
+        TelemetryCSVExporter.ExportWave(currentWaveData, profile);
+
         currentWaveData = null;
     }
 
@@ -159,7 +169,7 @@ public class TelemetryManager : MonoBehaviour
     private void HandlePlayerDamaged(int damage, int currentHealth)
     {
         if (currentWaveData == null) return;
-        currentWaveData.RegisterDamageEvent(damage, recoveryWindow);
+        currentWaveData.RegisterDamageEvent(damage, RecoveryWindow);
     }
 
     private void HandlePlayerDied()

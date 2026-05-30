@@ -2,6 +2,14 @@ using UnityEngine;
 
 public class DifficultyManager : MonoBehaviour
 {
+    public enum DifficultyMode
+    {
+        Fixed,
+        Dynamic
+    }
+
+    [SerializeField] private DifficultyMode currentMode = DifficultyMode.Dynamic;
+    public DifficultyMode CurrentMode => currentMode;
     public static DifficultyManager Instance { get; private set; }
 
     public DifficultySettings CurrentSettings { get; private set; } = new DifficultySettings();
@@ -19,6 +27,12 @@ public class DifficultyManager : MonoBehaviour
 
     public void UpdateDifficulty(PlayerProfile profile)
     {
+        if(currentMode == DifficultyMode.Fixed)
+        {
+            CurrentSettings = new DifficultySettings();
+            return;
+        }
+
         CurrentSettings = GenerateSettings(profile);
 
         Debug.Log(

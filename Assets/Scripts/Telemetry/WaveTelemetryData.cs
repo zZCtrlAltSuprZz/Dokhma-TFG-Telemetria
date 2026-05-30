@@ -143,6 +143,36 @@ public class WaveTelemetryData
         playerHealthEnd = playerHealth;
     }
 
+    // Index´s efficiency, pressure and aggression
+    public float CombatEfficiency
+    {
+        get
+        {
+            float normalizedKillRate = Mathf.Clamp01(KillRate / 0.5f);
+            return (Accuracy + normalizedKillRate) / 2f;
+        }
+    }
+
+    public float PressureIndex
+    {
+        get
+        {
+            float damageEventsNormalized = Mathf.Clamp01(damageEvents / 10f);
+            float damageStreakNormalized = Mathf.Clamp01(maxDamageStreak / 5f);
+            float healsNormalized = Mathf.Clamp01(automaticHeals / 5f);
+
+            return (damageEventsNormalized + damageStreakNormalized + healsNormalized) / 3f; 
+        }
+    }
+
+    public float AggressionIndex
+    {
+        get
+        {
+            return (MeleeUseRatio + MeleeAccuracy) / 2f;
+        }
+    } 
+
     public string GetSummary()
     {
         return
@@ -195,6 +225,12 @@ public class WaveTelemetryData
             $"Almas ganadas: {soulsGained}\n" +
             $"Almas gastadas: {soulsSpent}\n" +
             $"Cofres abiertos: {weaponChestsOpened}\n" +
-            $"Armas obtenidas: {weaponsObtained}";
+            $"Armas obtenidas: {weaponsObtained}\n" +
+
+            // INDICES
+            $"\n[INDICADORES]\n" +
+            $"Combat Efficiency: {CombatEfficiency:F2}\n" +
+            $"Pressure Index: {PressureIndex:F2}\n" +
+            $"Aggression Index: {AggressionIndex:F2}\n";
     }
 }

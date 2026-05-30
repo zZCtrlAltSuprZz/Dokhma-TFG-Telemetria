@@ -75,8 +75,8 @@ public class PlayerDamageFeedback : MonoBehaviour
         int visibleBloodImages = Mathf.CeilToInt(damagePercent * bloodImages.Length);
         visibleBloodImages = Mathf.Clamp(visibleBloodImages, 0, bloodImages.Length);
 
-        if (showDebug)
-            Debug.Log("Health: " + currentLives + "/" + maxLives + " DamagePercent: " + damagePercent);
+        /*if (showDebug)
+            Debug.Log("Health: " + currentLives + "/" + maxLives + " DamagePercent: " + damagePercent);*/
 
         for (int i = 0; i < bloodImages.Length; i++)
         {

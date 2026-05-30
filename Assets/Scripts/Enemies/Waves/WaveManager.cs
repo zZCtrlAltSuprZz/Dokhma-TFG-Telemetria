@@ -343,7 +343,7 @@ public class WaveManager : MonoBehaviour
     public void SetCurrentZone(GameZone zone)
     {
         currentZone = zone;
-        Debug.Log("Jugador en zona: " + currentZone);
+        //Debug.Log("Jugador en zona: " + currentZone);
     }
 
     public void NotifyEnemyDied()
