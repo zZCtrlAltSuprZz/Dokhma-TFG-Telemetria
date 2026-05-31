@@ -1,9 +1,15 @@
 using System.IO;
 using UnityEngine;
+using System.Globalization;
 
 public static class TelemetryCSVExporter
 {
     private static string FilePath => Path.Combine(Application.persistentDataPath, "telemetry_results.csv");
+
+    private static string F(float value, string format = "F2")
+    {
+        return value.ToString(format, CultureInfo.InvariantCulture);
+    }
     public static void ExportWave(WaveTelemetryData data, PlayerProfile profile)
     {
         bool fileExist = File.Exists(FilePath);
@@ -48,6 +54,9 @@ public static class TelemetryCSVExporter
             "soulsGained;" +
             "soulsSpent;" +
             "weaponSwitches;" +
+            "combatEfficiency;" +
+            "pressureIndex;" +
+            "aggressionIndex" +
             "profile;" +
             "difficultyMode;" +
             "enemyCountMultiplier;" +
@@ -68,18 +77,18 @@ public static class TelemetryCSVExporter
 
         return
             $"{data.waveNumber};" +
-            $"{data.waveDuration:F2};" +
+            $"{F(data.waveDuration):F2};" +
             $"{data.enemiesSpawned};" +
             $"{data.enemiesKilled};" +
-            $"{data.KillRate:F3};" +
+            $"{F(data.KillRate):F3};" +
             $"{data.shotsFired};" +
             $"{data.shotsHit};" +
-            $"{data.Accuracy:F3};" +
+            $"{F(data.Accuracy):F3};" +
             $"{data.meleeAttacksUsed};" +
             $"{data.meleeSuccessfulAttacks};" +
             $"{data.meleeEnemiesHit};" +
-            $"{data.MeleeUseRatio:F3};" +
-            $"{data.MeleeAccuracy:F3};" +
+            $"{F(data.MeleeUseRatio):F3};" +
+            $"{F(data.MeleeAccuracy):F3};" +
             $"{data.damageDealt};" +
             $"{data.rangedDamageDealt};" +
             $"{data.meleeDamageDealt};" +
@@ -87,16 +96,21 @@ public static class TelemetryCSVExporter
             $"{data.damageEvents};" +
             $"{data.maxDamageStreak};" +
             $"{data.automaticHeals};" +
-            $"{data.PressureScore:F2};" +
+            $"{F(data.PressureScore):F2};" +
             $"{data.playerHealthEnd};" +
             $"{data.soulsGained};" +
             $"{data.soulsSpent};" +
             $"{data.weaponSwitches};" +
+            $"{F(data.CombatEfficiency):F3};" +
+            $"{F(data.PressureIndex):F3};" +
+            $"{F(data.AggressionIndex):F3};" +
             $"{profile};" +
             $"{mode};" +
-            $"{settings.enemyCountMultiplier:F2};" +
-            $"{settings.maxAliveMultiplier:F2};" +
-            $"{settings.spawnIntervalMultiplier:F2};" +
-            $"{settings.restTimeMultiplier:F2}";
+            $"{F(settings.enemyCountMultiplier):F2};" +
+            $"{F(settings.maxAliveMultiplier):F2};" +
+            $"{F(settings.spawnIntervalMultiplier):F2};" +
+            $"{F(settings.restTimeMultiplier):F2}";
     }
+
+
 }

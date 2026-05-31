@@ -144,6 +144,8 @@ public class WaveTelemetryData
     }
 
     // Index´s efficiency, pressure and aggression
+    // Los índices se utilizan para analizar tendencias de comportamiento y ayudar a calibrar los perfiles de jugador.
+    // Los umbrales definitivos se obtienen posteriormente a partir de las partidas de prueba.
     public float CombatEfficiency
     {
         get
