@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Estructura que almacena las métricas recopiladas durante una oleada
+/// y proporciona indicadores derivados para su análisis.
+/// </summary>
 [System.Serializable]
 public class WaveTelemetryData
 {
@@ -54,6 +58,9 @@ public class WaveTelemetryData
     [Header("End State")]
     public int playerHealthEnd;
 
+    /// <summary>
+    /// Precisión de disparo durante la oleada.
+    /// </summary>
     public float Accuracy
     {
         get
@@ -63,6 +70,9 @@ public class WaveTelemetryData
         }
     }
 
+    /// <summary>
+    /// Porcentaje de ataques cuerpo a cuerpo realizados con éxito.
+    /// </summary>
     public float MeleeAccuracy
     {
         get
@@ -91,6 +101,9 @@ public class WaveTelemetryData
         }
     }
 
+    /// <summary>
+    /// Número de eliminaciones por segundo.
+    /// </summary>
     public float KillRate
     {
         get
@@ -100,6 +113,9 @@ public class WaveTelemetryData
         }
     }
 
+    /// <summary>
+    /// Indicador agregado del nivel de presión sufrido por el jugador.
+    /// </summary>
     public float PressureScore
     {
         get
@@ -108,12 +124,19 @@ public class WaveTelemetryData
         }
     }
 
+    /// <summary>
+    /// Inicializa el registro de datos para una nueva oleada.
+    /// </summary>
     public void StartWave(int wNumber)
     {
         waveNumber = wNumber;
         startTime = Time.time;
     }
 
+    /// <summary>
+    /// Registra un evento de daño recibido y actualiza las rachas
+    /// consecutivas de impactos.
+    /// </summary>
     public void RegisterDamageEvent(int damage, float streakWindowSeconds)
     {
         damageTaken += damage;
@@ -136,6 +159,9 @@ public class WaveTelemetryData
         lastDamageTime = Time.time;
     }
 
+    /// <summary>
+    /// Finaliza la oleada y calcula su duración total.
+    /// </summary>
     public void EndWave(int playerHealth)
     {
         endTime = Time.time;
@@ -146,6 +172,11 @@ public class WaveTelemetryData
     // Index´s efficiency, pressure and aggression
     // Los índices se utilizan para analizar tendencias de comportamiento y ayudar a calibrar los perfiles de jugador.
     // Los umbrales definitivos se obtienen posteriormente a partir de las partidas de prueba.
+
+    /// <summary>
+    /// Índice de eficiencia en combate basado en precisión
+    /// y ritmo de eliminación de enemigos.
+    /// </summary>
     public float CombatEfficiency
     {
         get
@@ -155,6 +186,10 @@ public class WaveTelemetryData
         }
     }
 
+    /// <summary>
+    /// Índice que refleja el nivel de presión experimentado
+    /// durante la oleada.
+    /// </summary>
     public float PressureIndex
     {
         get
@@ -167,6 +202,9 @@ public class WaveTelemetryData
         }
     }
 
+    /// <summary>
+    /// Índice asociado al uso de combate cuerpo a cuerpo.
+    /// </summary>
     public float AggressionIndex
     {
         get

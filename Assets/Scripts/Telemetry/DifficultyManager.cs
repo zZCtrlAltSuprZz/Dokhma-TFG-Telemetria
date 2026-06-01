@@ -1,5 +1,9 @@
 using UnityEngine;
 
+/// <summary>
+/// Gestiona la adaptación dinámica de la dificultad a partir
+/// del perfil de comportamiento obtenido mediante telemetría.
+/// </summary>
 public class DifficultyManager : MonoBehaviour
 {
     public enum DifficultyMode
@@ -25,6 +29,11 @@ public class DifficultyManager : MonoBehaviour
         Instance = this;
     }
 
+    /// <summary>
+    /// Actualiza los parámetros de dificultad para la siguiente oleada
+    /// en función del perfil identificado.
+    /// </summary>
+    /// <param name="profile">Perfil de jugador detectado.</param>
     public void UpdateDifficulty(PlayerProfile profile)
     {
         if(currentMode == DifficultyMode.Fixed)
@@ -44,6 +53,12 @@ public class DifficultyManager : MonoBehaviour
        );
     }
 
+    /// <summary>
+    /// Genera una configuración de dificultad asociada a un perfil
+    /// concreto de jugador.
+    /// </summary>
+    /// <param name="profile">Perfil seleccionado.</param>
+    /// <returns>Configuración de dificultad resultante.</returns>
     private DifficultySettings GenerateSettings(PlayerProfile profile)
     {
         switch (profile)

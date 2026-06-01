@@ -2,6 +2,10 @@ using UnityEngine;
 using System.Collections.Generic;
 
 
+/// <summary>
+/// Recopila y consolida los eventos de telemetría generados durante
+/// la partida, almacenando las métricas de cada oleada.
+/// </summary>
 public class TelemetryManager : MonoBehaviour
 {
     public static TelemetryManager Instance { get; private set; }
@@ -106,12 +110,19 @@ public class TelemetryManager : MonoBehaviour
         GameTelemetryEvents.OnPerkChosen -= HandlePerkChosen;
     }
 
+    /// <summary>
+    /// Inicializa el registro de métricas para una nueva oleada.
+    /// </summary>
     private void HandleWaveStarted(int waveNumber)
     {
         currentWaveData = new WaveTelemetryData();
         currentWaveData.StartWave(waveNumber);
     }
 
+    /// <summary>
+    /// Finaliza la recopilación de datos de la oleada, calcula el perfil
+    /// del jugador y exporta los resultados obtenidos.
+    /// </summary>
     private void HandleWaveCompleted(int waveNumber)
     {
         if (currentWaveData == null) return;
@@ -196,6 +207,10 @@ public class TelemetryManager : MonoBehaviour
         currentWaveData.shotsFired++;
     }
 
+    /// <summary>
+    /// Registra un evento de daño recibido por el jugador y actualiza
+    /// los indicadores de presión.
+    /// </summary>
     private void HandleShotHit(string weaponName, int damage)
     {
         if (currentWaveData == null) return;
@@ -210,8 +225,10 @@ public class TelemetryManager : MonoBehaviour
         currentWaveData.meleeAttacksUsed++;
     }
 
-  
 
+    /// <summary>
+    /// Registra un ataque cuerpo a cuerpo exitoso.
+    /// </summary>
     private void HandleMeleeSuccessfulAttack(string weaponName, int enemiesHit, int damage)
     {
         if (currentWaveData == null) return;

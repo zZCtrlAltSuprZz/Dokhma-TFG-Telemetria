@@ -1,13 +1,19 @@
 using System;
 using UnityEngine;
 
+/// <summary>
+/// Punto centralizado de comunicación entre los distintos sistemas
+/// del juego para registrar eventos de telemetría.
+/// </summary>
 public static class GameTelemetryEvents
 {
+    // Supervivencia
     public static event Action<int, int> OnPlayerDamaged;
     public static event Action OnPlayerDied;
     public static event Action OnPlayerRevived;
     public static event Action<int, int> OnPlayerHealed;
 
+    // Combate 
     public static event Action<string> OnShotFired;
     public static event Action<string, int> OnShotHit;
     public static event Action<string> OnMeleeAttackUsed;
@@ -17,6 +23,7 @@ public static class GameTelemetryEvents
     public static event Action OnEnemySpawned;
     public static event Action<EnemyType> OnEnemyKilled;
 
+    // Progresion y economía
     public static event Action<int> OnWaveStarted;
     public static event Action<int> OnWaveCompleted;
 
@@ -53,8 +60,15 @@ public static class GameTelemetryEvents
 
     public static void EnemyKilled(EnemyType enemyType) => OnEnemyKilled?.Invoke(enemyType);
 
+    /// <summary>
+    /// Notifica el inicio de una nueva oleada.
+    /// </summary>
     public static void WaveStarted(int waveNumber) => OnWaveStarted?.Invoke(waveNumber);
 
+    /// <summary>
+    /// Notifica la finalización de una oleada y desencadena
+    /// el procesamiento de las métricas registradas.
+    /// </summary>
     public static void WaveCompleted(int waveNumber) => OnWaveCompleted?.Invoke(waveNumber);
 
     public static void SoulsGained(int amount) => OnSoulsGained?.Invoke(amount);

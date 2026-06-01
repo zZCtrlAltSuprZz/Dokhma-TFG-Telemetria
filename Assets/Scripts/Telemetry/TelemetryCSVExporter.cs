@@ -2,6 +2,10 @@ using System.IO;
 using UnityEngine;
 using System.Globalization;
 
+/// <summary>
+/// Exporta los resultados de telemetría a un archivo CSV para
+/// su posterior análisis estadístico.
+/// </summary>
 public static class TelemetryCSVExporter
 {
     private static string FilePath => Path.Combine(Application.persistentDataPath, "telemetry_results.csv");
@@ -10,6 +14,12 @@ public static class TelemetryCSVExporter
     {
         return value.ToString(format, CultureInfo.InvariantCulture);
     }
+
+    /// <summary>
+    /// Añade una nueva fila de datos correspondiente a una oleada.
+    /// </summary>
+    /// <param name="data">Datos de telemetría registrados.</param>
+    /// <param name="profile">Perfil identificado para la oleada.</param>
     public static void ExportWave(WaveTelemetryData data, PlayerProfile profile)
     {
         bool fileExist = File.Exists(FilePath);
@@ -26,6 +36,9 @@ public static class TelemetryCSVExporter
         Debug.Log($"[CSV] Datos exportados en: {FilePath}");
     }
 
+    /// <summary>
+    /// Genera la cabecera del archivo CSV.
+    /// </summary>
     private static string GetHeader()
     {
         return
@@ -65,6 +78,9 @@ public static class TelemetryCSVExporter
             "restTimeMultiplier";
     }
 
+    /// <summary>
+    /// Convierte los datos de la oleada en una fila compatible con CSV.
+    /// </summary>
     private static string GetRow(WaveTelemetryData data, PlayerProfile profile)
     {
         DifficultySettings settings = DifficultyManager.Instance != null
