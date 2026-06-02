@@ -45,12 +45,14 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController controller;
     private PlayerInputReader input;
 
+
     private bool staminaLocked;
     private float verticalVelocity;
 
     private bool hasStaminUp;
     private bool hasDash;
     private bool isDashing;
+    private bool wasMoving;
 
     private float nextDashTime;
     private float staminaUIHideTimer;
@@ -64,8 +66,7 @@ public class PlayerMovement : MonoBehaviour
     public bool HasDash => hasDash;
     public bool IsDashing => isDashing;
 
-    public float DashCooldownRemaining =>
-        Mathf.Max(0f, nextDashTime - Time.time);
+    public float DashCooldownRemaining => Mathf.Max(0f, nextDashTime - Time.time);
 
     private void Awake()
     {
@@ -145,11 +146,21 @@ public class PlayerMovement : MonoBehaviour
 
         bool isMoving = movementInput.magnitude > 0.1f;
 
+        if (wasMoving && !isMoving && input != null)
+        {
+            input.CancelGamepadSprintToggle();
+        }
+
+        wasMoving = isMoving;
+
         float staminaPercent = CurrentStamina / maxStamina;
 
         if (CurrentStamina <= 0f)
         {
             staminaLocked = true;
+
+            if (input != null)
+                input.CancelGamepadSprintToggle();
         }
 
         if (staminaLocked && staminaPercent >= staminaPercentToRunAgain)

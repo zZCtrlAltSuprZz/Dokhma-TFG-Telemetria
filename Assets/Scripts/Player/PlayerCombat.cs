@@ -292,7 +292,14 @@ public class PlayerCombat : MonoBehaviour
         weaponRecoil?.PlayRecoil();
 
         Transform shootPoint = GetFirePoint(weapon);
-        GameObject bullet = Instantiate(weapon.bulletPrefab, shootPoint.position, shootPoint.rotation);
+
+        Vector3 shootDirection = GetComponent<PlayerAim>().LastAimDirection;
+        shootDirection.y = 0f;
+        shootDirection.Normalize();
+
+        Quaternion bulletRotation = Quaternion.LookRotation(shootDirection);
+
+        GameObject bullet = Instantiate(weapon.bulletPrefab, shootPoint.position, bulletRotation);
 
         Bullet bulletScript = bullet.GetComponent<Bullet>();
 
@@ -348,6 +355,15 @@ public class PlayerCombat : MonoBehaviour
         }
 
         return transform;
+    }
+
+    public void PlayWeaponVFX(WeaponData weapon, Vector3 position, Quaternion rotation)
+    {
+        if (weapon == null || weapon.useVFXPrefab == null) return;
+
+        GameObject vfx = Instantiate(weapon.useVFXPrefab, position, rotation);
+
+        Destroy(vfx, weapon.vfxLifetime);
     }
 
     public void PlayWeaponVFX(WeaponData weapon)

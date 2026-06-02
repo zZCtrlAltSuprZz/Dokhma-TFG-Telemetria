@@ -76,7 +76,7 @@ public class PlayerAim : MonoBehaviour
         Vector3 aimDirection = new Vector3(aimStickInput.x, 0f, aimStickInput.y).normalized;
         lastAimDirection = aimDirection;
 
-        RotateToDirection(lastAimDirection);
+        //RotateToDirection(lastAimDirection);
 
         if (showDebug)
             Debug.DrawLine(transform.position, transform.position + aimDirection * 3f, Color.cyan);
@@ -103,7 +103,7 @@ public class PlayerAim : MonoBehaviour
         if (direction.sqrMagnitude <= 0.01f) return;
 
         lastAimDirection = direction.normalized;
-        RotateToDirection(lastAimDirection);
+        //RotateToDirection(lastAimDirection);
 
         if (showDebug)
             Debug.DrawLine(transform.position, targetPosition, Color.red, 0.1f);
@@ -113,10 +113,11 @@ public class PlayerAim : MonoBehaviour
     {
         if (lastAimDirection.sqrMagnitude <= 0.0001f) return;
 
-        RotateToDirection(lastAimDirection);
+        //RotateToDirection(lastAimDirection);
     }
 
-    private void RotateToDirection(Vector3 direction)
+
+    /*private void RotateToDirection(Vector3 direction)
     {
         direction.y = 0f;
 
@@ -128,6 +129,15 @@ public class PlayerAim : MonoBehaviour
             targetRotation,
             rotationSmoothness * Time.deltaTime
         );
+    }*/
+
+    public void SetAimDirection(Vector3 direction)
+    {
+        direction.y = 0f;
+
+        if (direction.sqrMagnitude <= 0.001f) return;
+
+        lastAimDirection = direction.normalized;
     }
 
     private void OnDrawGizmosSelected()

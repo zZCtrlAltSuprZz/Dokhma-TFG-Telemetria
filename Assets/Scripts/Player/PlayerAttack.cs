@@ -7,17 +7,18 @@ public class PlayerAttack : MonoBehaviour
     [Header("CameraShake")]
     [SerializeField] private CinemachineCameraShake cameraShake;
 
+    private PlayerAim aim;
+    private PlayerCombat combat;
+    private Animator animator;
 
     private float nextAttackTime = 0f;
-    private Animator animator;
     private bool nextSwingRight = true;
-
-    private PlayerCombat combat;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
         combat = GetComponent<PlayerCombat>();
+        aim = GetComponent<PlayerAim>();
     }
 
     public void TryMeleeAttack(WeaponData weapon)
@@ -26,7 +27,6 @@ public class PlayerAttack : MonoBehaviour
         if (Time.time < nextAttackTime) return;
 
         currentMeleeWeapon = weapon;
-
         nextAttackTime = Time.time + combat.GetFinalMeleeCooldown(weapon);
 
         if (nextSwingRight)
@@ -39,19 +39,22 @@ public class PlayerAttack : MonoBehaviour
             animator.ResetTrigger("Attack1");
             animator.SetTrigger("Attack2");
         }
+
         nextSwingRight = !nextSwingRight;
     }
 
-    // Animation Event
     public void DealMeleeDamage()
     {
         if (currentMeleeWeapon == null) return;
 
-        combat?.PlayWeaponVFX(currentMeleeWeapon);
+        Vector3 attackDirection = GetAttackDirection();
+        Vector3 center = GetMeleeCenter();
+        Quaternion rotation = GetMeleeRotation();
+
+        combat?.PlayWeaponVFX(currentMeleeWeapon, center, rotation);
         cameraShake?.Shake(0.06f, 1f, 15f);
 
-        Vector3 center = transform.position + transform.forward * currentMeleeWeapon.forwardOffset;
-        Collider[] hits = Physics.OverlapSphere( center, currentMeleeWeapon.attackRange, currentMeleeWeapon.enemyLayer);
+        Collider[] hits = Physics.OverlapSphere(center, currentMeleeWeapon.attackRange, currentMeleeWeapon.enemyLayer);
 
         int enemiesHitThisAttack = 0;
         int totalDamageThisAttack = 0;
@@ -62,15 +65,12 @@ public class PlayerAttack : MonoBehaviour
 
             if (enemy != null)
             {
-                Vector3 hitDir = enemy.transform.position - transform.position;
-                hitDir.y = 0f;
-
                 if (combat != null)
                 {
                     int finalDamage = combat.GetFinalDamage(currentMeleeWeapon.damage);
 
                     enemy.SetKnockbackStats(combat.KnockbackMultiplier, combat.KnockbackTimeMultiplier);
-                    enemy.ApplyHit(finalDamage, hitDir);
+                    enemy.ApplyHit(finalDamage, attackDirection);
 
                     enemiesHitThisAttack++;
                     totalDamageThisAttack += finalDamage;
@@ -88,13 +88,45 @@ public class PlayerAttack : MonoBehaviour
         }
     }
 
+    private Vector3 GetAttackDirection()
+    {
+        if (aim != null && aim.LastAimDirection.sqrMagnitude > 0.001f)
+        {
+            Vector3 direction = aim.LastAimDirection;
+            direction.y = 0f;
+            return direction.normalized;
+        }
+
+        return transform.forward;
+    }
+
+    private Vector3 GetMeleeCenter()
+    {
+        return transform.position + GetAttackDirection() * currentMeleeWeapon.forwardOffset;
+    }
+
+    private Quaternion GetMeleeRotation()
+    {
+        return Quaternion.LookRotation(GetAttackDirection(), Vector3.up);
+    }
+
     private void OnDrawGizmosSelected()
     {
         if (currentMeleeWeapon == null) return;
 
         Gizmos.color = Color.red;
 
-        Vector3 center = transform.position + transform.forward * currentMeleeWeapon.forwardOffset;
+        Vector3 attackDirection = transform.forward;
+        PlayerAim aimRef = GetComponent<PlayerAim>();
+
+        if (aimRef != null && aimRef.LastAimDirection.sqrMagnitude > 0.001f)
+        {
+            attackDirection = aimRef.LastAimDirection;
+            attackDirection.y = 0f;
+            attackDirection.Normalize();
+        }
+
+        Vector3 center = transform.position + attackDirection * currentMeleeWeapon.forwardOffset;
 
         Gizmos.DrawWireSphere(center, currentMeleeWeapon.attackRange);
     }

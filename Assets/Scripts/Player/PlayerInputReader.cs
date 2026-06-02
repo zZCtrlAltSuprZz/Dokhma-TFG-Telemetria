@@ -11,7 +11,7 @@ public class PlayerInputReader : MonoBehaviour
     public Vector2 AimStickInput { get; private set; }
 
     public bool FireHeld => fireAction != null && fireAction.IsPressed();
-    public bool SprintHeld => sprintAction != null && sprintAction.IsPressed();
+    public bool SprintHeld => keyboardSprintAction != null && keyboardSprintAction.IsPressed() || gamepadSprintToggle;
 
     public System.Action OnFirePressed;
     public System.Action OnSwitchWeaponPressed;
@@ -28,6 +28,10 @@ public class PlayerInputReader : MonoBehaviour
     private InputAction sprintAction;
     private InputAction reloadAction;
     private InputAction dashAction;
+    private InputAction keyboardSprintAction;
+    private InputAction gamepadSprintAction;
+
+    private bool gamepadSprintToggle;
 
     private void Awake()
     {
@@ -52,9 +56,12 @@ public class PlayerInputReader : MonoBehaviour
 
         moveAction.AddBinding("<Gamepad>/leftStick");
 
-        sprintAction = new InputAction("Sprint", InputActionType.Button);
-        sprintAction.AddBinding("<Keyboard>/leftShift");
-        sprintAction.AddBinding("<Gamepad>/leftStickPress");
+        keyboardSprintAction = new InputAction("KeyboardSprint", InputActionType.Button);
+        keyboardSprintAction.AddBinding("<Keyboard>/leftShift");
+
+        gamepadSprintAction = new InputAction("GamepadSprint", InputActionType.Button);
+        gamepadSprintAction.AddBinding("<Gamepad>/leftStickPress");
+        gamepadSprintAction.performed += HandleGamepadSprintPerformed;
 
         mouseAction = new InputAction("MousePosition", InputActionType.Value, "<Mouse>/position");
 
@@ -90,11 +97,18 @@ public class PlayerInputReader : MonoBehaviour
 
     }
 
+    public void CancelGamepadSprintToggle()
+    {
+        gamepadSprintToggle = false;
+    }
     private void HandleFirePerformed(InputAction.CallbackContext context)
     {
         OnFirePressed?.Invoke();
     }
-
+    private void HandleGamepadSprintPerformed(InputAction.CallbackContext context)
+    {
+        gamepadSprintToggle = !gamepadSprintToggle;
+    }
     private void HandleReloadPerformed(InputAction.CallbackContext context)
     {
         OnReloadPressed?.Invoke();
@@ -142,6 +156,9 @@ public class PlayerInputReader : MonoBehaviour
         if (dashAction != null)
             dashAction.performed -= HandleDashPerformed;
 
+        if (gamepadSprintAction != null) 
+            gamepadSprintAction.performed -= HandleGamepadSprintPerformed;
+
         DisableActions();
     }
 
@@ -156,6 +173,8 @@ public class PlayerInputReader : MonoBehaviour
         sprintAction?.Enable();
         reloadAction?.Enable();
         dashAction?.Enable();
+        keyboardSprintAction?.Enable();
+        gamepadSprintAction?.Enable();
     }
 
     private void DisableActions()
@@ -169,5 +188,7 @@ public class PlayerInputReader : MonoBehaviour
         interactAction?.Disable();
         reloadAction?.Disable();
         dashAction?.Disable();
+        keyboardSprintAction?.Disable();
+        gamepadSprintAction?.Disable();
     }
 }

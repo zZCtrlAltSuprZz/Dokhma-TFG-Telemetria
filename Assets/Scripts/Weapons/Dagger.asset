@@ -26,7 +26,7 @@ MonoBehaviour:
   attackCooldown: 0.5
   attackRange: 3
   damage: 1
-  forwardOffset: 1
+  forwardOffset: 2
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64

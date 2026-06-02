@@ -14,6 +14,7 @@ public class PlayerBrain : MonoBehaviour
     [SerializeField] private float combatExitDelay = 1f;
     private float lastCombatTime;
     private bool isInCombat;
+    private bool wasRunning;
     bool aimingWithStick;
     private PlayerInputReader inputReader;
     private PlayerMovement movement;
@@ -62,7 +63,15 @@ public class PlayerBrain : MonoBehaviour
     {
         if (inputReader == null) return;
 
-        movement?.Move(inputReader.MovementInput, inputReader.SprintHeld); UpdateMovementAnimation();
+        movement?.Move(inputReader.MovementInput, inputReader.SprintHeld); 
+        UpdateMovementAnimation();
+        
+        if (wasRunning && movement != null && !movement.IsRunning)
+        {
+            aim?.SetAimDirection(transform.forward);
+        }
+
+        wasRunning = movement != null && movement.IsRunning;
 
         if (movement != null && movement.IsRunning)
         {
@@ -72,6 +81,7 @@ public class PlayerBrain : MonoBehaviour
         {
             aim?.HandleAim(inputReader.MousePosition, inputReader.AimStickInput);
         }
+
         if (combat != null && movement != null && !movement.IsRunning && !combat.IsReloading() && combat.CurrentWeaponIsAutomatic() && inputReader.FireHeld)
         {
             EnterCombat();
