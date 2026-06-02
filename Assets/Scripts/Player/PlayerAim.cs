@@ -35,7 +35,7 @@ public class PlayerAim : MonoBehaviour
 
     public void HandleAim(Vector2 mousePosition, Vector2 aimStickInput)
     {
-        bool stickActive = aimStickInput.magnitude > gamepadAimDeadzone;
+        bool stickActive = aimStickInput.sqrMagnitude > 0.001f;
         bool mouseMoved = Vector2.Distance(mousePosition, previousMousePosition) > mouseMoveThreshold;
 
         if (stickActive)

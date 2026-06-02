@@ -6,6 +6,10 @@ public class PlayerInputReader : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool showDebug = true;
 
+    [Header("Gamepad Deadzones")]
+    [SerializeField] private float moveStickDeadzone = 0.5f;
+    [SerializeField] private float aimStickDeadzone = 0.5f;
+
     public Vector2 MovementInput { get; private set; }
     public Vector2 MousePosition { get; private set; }
     public Vector2 AimStickInput { get; private set; }
@@ -40,9 +44,12 @@ public class PlayerInputReader : MonoBehaviour
 
     private void Update()
     {
-        MovementInput = moveAction.ReadValue<Vector2>();
+        Vector2 rawMoveInput = moveAction.ReadValue<Vector2>();
+        Vector2 rawAimInput = aimAction.ReadValue<Vector2>();
+
+        MovementInput = ApplyStickDeadzone(rawMoveInput, moveStickDeadzone);
+        AimStickInput = ApplyStickDeadzone(rawAimInput, aimStickDeadzone);
         MousePosition = mouseAction.ReadValue<Vector2>();
-        AimStickInput = aimAction.ReadValue<Vector2>();
     }
 
     private void SetupInputSystem()
@@ -137,6 +144,15 @@ public class PlayerInputReader : MonoBehaviour
     private void OnDisable()
     {
         DisableActions();
+    }
+
+    private Vector2 ApplyStickDeadzone(Vector2 input, float deadzone)
+    {
+        if (input.magnitude < deadzone) return Vector2.zero;
+
+        float correctedMagnitude = Mathf.InverseLerp(deadzone, 1f, input.magnitude);
+
+        return input.normalized * correctedMagnitude;
     }
 
     private void OnDestroy()
