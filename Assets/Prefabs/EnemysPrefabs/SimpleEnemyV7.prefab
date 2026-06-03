@@ -621,6 +621,7 @@ MonoBehaviour:
   speed: 16.5
   stopDistance: 0.4
   resumeDistance: 0.6
+  repathRate: 0.1
   attackRange: 3.6
   attackCooldown: 0.4
   attackDamage: 2
@@ -676,12 +677,13 @@ MonoBehaviour:
   flashMaterial: {fileID: 2100000, guid: 2cb364211f0e8be4ea370f05bf40fb14, type: 2}
   flashDuration: 0.3
   flashInterval: 0.1
-  deathFX: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+  deathFX: {fileID: 725748389856807714, guid: db2a3a56967d4ab47a994f3811105cd3, type: 3}
   deathFXPoint: {fileID: 1441342534298911162}
   destroyDelay: 0.05
   hitFX: {fileID: 5880797563127281583, guid: 6ab4f17394d92cd45896bbf27d19c29a, type: 3}
   hitFXPoint: {fileID: 8185030669747430253}
   hitFXLifetime: 2
+  enemyType: 0
 --- !u!114 &2850122788360098812
 MonoBehaviour:
   m_ObjectHideFlags: 0

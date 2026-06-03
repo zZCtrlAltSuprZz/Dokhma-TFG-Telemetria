@@ -5,11 +5,11 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/MainMenu.unity
     guid: 2c1cfa24167a4f540bf699cf66308c54
   - enabled: 1
-    path: Assets/Scenes/Blocking.unity
+    path: Assets/Scenes/MainSceneGameplay.unity
     guid: 56a97a6030400f64196357fb8bcde397
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 289c1b55c9541489481df5cc06664110, type: 3}

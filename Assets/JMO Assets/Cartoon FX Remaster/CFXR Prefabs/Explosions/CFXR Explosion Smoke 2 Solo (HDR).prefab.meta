@@ -1,15 +1,7 @@
 fileFormatVersion: 2
-guid: 4bda94453d2ca7444a0fff05b2d425f5
+guid: db2a3a56967d4ab47a994f3811105cd3
 PrefabImporter:
   externalObjects: {}
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 109565
-  packageName: Cartoon FX Remaster Free
-  packageVersion: R 1.5.0
-  assetPath: Assets/JMO Assets/Cartoon FX Remaster/CFXR Prefabs/Explosions/CFXR Explosion
-    Smoke 2 Solo (HDR).prefab
-  uploadId: 836238

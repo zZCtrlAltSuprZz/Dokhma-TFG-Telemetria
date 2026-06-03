@@ -621,13 +621,14 @@ MonoBehaviour:
   speed: 16.3
   stopDistance: 0.4
   resumeDistance: 0.6
+  repathRate: 0.1
   attackRange: 3.6
   attackCooldown: 0.5
   attackDamage: 2
   attackTrigger1: Attack1
   attackTrigger2: Attack2
   animator: {fileID: 2387469740466528015}
-  playerHitFX: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
+  playerHitFX: {fileID: 725748389856807714, guid: db2a3a56967d4ab47a994f3811105cd3, type: 3}
   playerHitFXLifetime: 2
   playerHitFXOffset: {x: 0, y: 1, z: 0}
 --- !u!195 &5538182205777870512
@@ -682,6 +683,7 @@ MonoBehaviour:
   hitFX: {fileID: 5880797563127281583, guid: 6ab4f17394d92cd45896bbf27d19c29a, type: 3}
   hitFXPoint: {fileID: 8185030669747430253}
   hitFXLifetime: 2
+  enemyType: 0
 --- !u!114 &2850122788360098812
 MonoBehaviour:
   m_ObjectHideFlags: 0
