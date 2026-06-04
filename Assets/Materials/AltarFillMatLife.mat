@@ -65,12 +65,12 @@ Material:
     - _BubbleSpeed: 1.2
     - _BumpScale: 1
     - _Cutoff: 0.5
-    - _DepthDarkness: 0.09
+    - _DepthDarkness: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
-    - _EdgeWidth: 0.068
+    - _EdgeWidth: 0.0199
     - _EmissionIntensity: 10
-    - _FillAmount: 0.763
+    - _FillAmount: 0.547
     - _GlossMapScale: 1
     - _Glossiness: 0.5
     - _GlossyReflections: 1
@@ -83,13 +83,13 @@ Material:
     - _SrcBlend: 1
     - _UVSec: 0
     - _WaveSpeed: 2.14
-    - _WaveStrength: 0.0041
+    - _WaveStrength: 0.0379
     - _ZWrite: 1
     m_Colors:
     - _BloodColor: {r: 0.019607844, g: 0.3019608, b: 0.03137255, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _FillColor: {r: 0.19999996, g: 0.6, b: 1, a: 1}
-    - _GlowColor: {r: 0.050980374, g: 0.7019608, b: 0.07058824, a: 1}
+    - _GlowColor: {r: 0.46391067, g: 0.7075472, b: 0.5019279, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1

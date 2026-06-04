@@ -27,6 +27,8 @@ public class AltarFillEffect : MonoBehaviour
         {
             mat.SetFloat(fillProperty, 0f);
             mat.SetColor("_FillColor", fillColor * emissionIntensity);
+            mat.EnableKeyword("_EMISSION");
+            mat.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
         }
     }
 
@@ -45,5 +47,7 @@ public class AltarFillEffect : MonoBehaviour
         // Animar suavemente hacia el objetivo
         currentFill = Mathf.MoveTowards(currentFill, targetFill, fillSpeed * Time.deltaTime);
         mat.SetFloat(fillProperty, currentFill);
+        mat.SetColor("_GlowColor", fillColor * emissionIntensity * currentFill);
+        DynamicGI.SetEmissive(altarRenderer, fillColor * emissionIntensity * currentFill);
     }
 }

@@ -38,6 +38,7 @@ Shader "Custom/AltarFill"
             {
                 float4 pos : SV_POSITION;
                 float2 uv : TEXCOORD0;
+                float3 worldPos : TEXCOORD1;
             };
 
             float _FillAmount;
@@ -51,7 +52,6 @@ Shader "Custom/AltarFill"
             float _BubbleScale;
             float _DepthDarkness;
 
-            // Ruido simple para burbujas
             float hash(float2 p)
             {
                 return frac(sin(dot(p, float2(127.1, 311.7))) * 43758.5453);
@@ -62,7 +62,6 @@ Shader "Custom/AltarFill"
                 float2 i = floor(p);
                 float2 f = frac(p);
                 f = f * f * (3.0 - 2.0 * f);
-
                 return lerp(
                     lerp(hash(i), hash(i + float2(1,0)), f.x),
                     lerp(hash(i + float2(0,1)), hash(i + float2(1,1)), f.x),
@@ -75,6 +74,7 @@ Shader "Custom/AltarFill"
                 v2f o;
                 o.pos = UnityObjectToClipPos(v.vertex);
                 o.uv = v.uv;
+                o.worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
                 return o;
             }
 
@@ -83,43 +83,38 @@ Shader "Custom/AltarFill"
                 float2 uv = i.uv;
                 float t = _Time.y;
 
-                // Superficie ondulante con doble ola
                 float wave1 = sin(uv.x * 18.0 + t * _WaveSpeed) * _WaveStrength;
                 float wave2 = sin(uv.x * 9.0 - t * _WaveSpeed * 0.6) * (_WaveStrength * 0.5);
                 float surface = _FillAmount + wave1 + wave2;
 
                 if (uv.y > surface) discard;
 
-                // Burbujas subiendo
                 float2 bubbleUV = uv * _BubbleScale;
                 bubbleUV.y -= t * _BubbleSpeed;
                 float bubbles = noise(bubbleUV);
                 bubbles = smoothstep(0.72, 0.78, bubbles) * 0.4;
 
-                // Oscurecer hacia el fondo (profundidad)
                 float depth = 1.0 - (uv.y / max(surface, 0.001));
                 float darkness = lerp(1.0, 1.0 - _DepthDarkness, depth);
 
-                // Borde brillante en la superficie
                 float edgeDist = surface - uv.y;
                 float edge = smoothstep(_EdgeWidth, 0.0, edgeDist);
 
-                // Color base oscuro con profundidad
                 float3 baseColor = _BloodColor.rgb * darkness;
-
-                // Añadir burbujas como puntos más brillantes
                 baseColor += _GlowColor.rgb * bubbles;
 
-                // Borde luminoso
                 float3 glowColor = _GlowColor.rgb * _EmissionIntensity;
                 float3 finalColor = lerp(baseColor, glowColor, edge);
 
-                // Alpha: más opaco en superficie, semitransparente en fondo
-                float alpha = 1.0;
+                float emissionMask = saturate(edge + bubbles * 0.5);
+                float3 emission = _GlowColor.rgb * _EmissionIntensity * emissionMask;
+                finalColor += emission;
 
-                return fixed4(finalColor, alpha);
+                return fixed4(finalColor, 1.0);
             }
             ENDCG
         }
     }
+
+    FallBack "Standard"
 }
