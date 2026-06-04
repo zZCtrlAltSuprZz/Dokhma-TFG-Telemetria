@@ -10661,7 +10661,7 @@ MonoBehaviour:
   player: {fileID: 8899724445724029880}
   waveText: {fileID: 1706811564}
   remainingEnemiesText: {fileID: 115574528}
-  startingWave: 7
+  startingWave: 6
   waves:
   - waveName: Wave 1
     enemies:
@@ -10719,7 +10719,7 @@ MonoBehaviour:
   - waveName: Wave 6
     enemies:
     - enemyName: 
-      enemyPrefab: {fileID: 7553377709098772736, guid: 5c2ede2a828313d428431b841c1989d0, type: 3}
+      enemyPrefab: {fileID: 7553377709098772736, guid: 353f79476d7d38f4b8258cd3e6b2b977, type: 3}
       amount: 33
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 85e0702283806644587be100878ac7f7, type: 3}
@@ -10794,6 +10794,32 @@ MonoBehaviour:
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 1.2
+  - waveName: Wave 13
+    enemies:
+    - enemyName: 
+      enemyPrefab: {fileID: 7553377709098772736, guid: d14294c8e99fbfb42958b89d0de1f7cf, type: 3}
+      amount: 60
+    - enemyName: 
+      enemyPrefab: {fileID: 5537767893191302026, guid: 4c275d79a12ba4e478244300410e9439, type: 3}
+      amount: 9
+    maxAliveEnemies: 56
+    spawnInterval: 0.8
+    maxSpawnDistanceToPlayer: 300
+    minSpawnDistanceToPlayer: 0
+    rangedSpawnRadiusAroundPlayer: 0.9
+  - waveName: Wave 14
+    enemies:
+    - enemyName: 
+      enemyPrefab: {fileID: 7553377709098772736, guid: d14294c8e99fbfb42958b89d0de1f7cf, type: 3}
+      amount: 60
+    - enemyName: 
+      enemyPrefab: {fileID: 5537767893191302026, guid: 4c275d79a12ba4e478244300410e9439, type: 3}
+      amount: 9
+    maxAliveEnemies: 56
+    spawnInterval: 0.6
+    maxSpawnDistanceToPlayer: 300
+    minSpawnDistanceToPlayer: 0
+    rangedSpawnRadiusAroundPlayer: 0.8
   timeBetweenWaves: 5
 --- !u!4 &1182457512
 Transform:
