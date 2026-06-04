@@ -618,10 +618,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6816dc9e47044564f9843b42914bb854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 15.5
+  speed: 6.5
   stopDistance: 0.4
   resumeDistance: 0.6
   repathRate: 0.1
+  surroundRadius: 2.5
+  surroundOffsetChangeRate: 2.5
   attackRange: 3.6
   attackCooldown: 0.5
   attackDamage: 1

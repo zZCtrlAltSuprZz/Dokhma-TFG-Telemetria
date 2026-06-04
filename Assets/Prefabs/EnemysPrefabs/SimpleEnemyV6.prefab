@@ -618,18 +618,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6816dc9e47044564f9843b42914bb854, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 16.3
+  speed: 7.8
   stopDistance: 0.4
   resumeDistance: 0.6
   repathRate: 0.1
+  surroundRadius: 2.5
+  surroundOffsetChangeRate: 2.5
   attackRange: 3.6
   attackCooldown: 0.5
   attackDamage: 2
   attackTrigger1: Attack1
   attackTrigger2: Attack2
   animator: {fileID: 2387469740466528015}
-  playerHitFX: {fileID: 725748389856807714, guid: db2a3a56967d4ab47a994f3811105cd3, type: 3}
-  playerHitFXLifetime: 2
+  playerHitFX: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
+  playerHitFXLifetime: 1
   playerHitFXOffset: {x: 0, y: 1, z: 0}
 --- !u!195 &5538182205777870512
 NavMeshAgent:
@@ -666,8 +668,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 5
-  soulsPerHit: 12
-  soulsOnDeath: 32
+  soulsPerHit: 11
+  soulsOnDeath: 31
   enableKnockback: 1
   knockbackDistance: 1.2
   knockbackTime: 0.12
@@ -677,11 +679,11 @@ MonoBehaviour:
   flashMaterial: {fileID: 2100000, guid: 2cb364211f0e8be4ea370f05bf40fb14, type: 2}
   flashDuration: 0.3
   flashInterval: 0.1
-  deathFX: {fileID: 725748389856807714, guid: 4bda94453d2ca7444a0fff05b2d425f5, type: 3}
+  deathFX: {fileID: 725748389856807714, guid: db2a3a56967d4ab47a994f3811105cd3, type: 3}
   deathFXPoint: {fileID: 1441342534298911162}
   destroyDelay: 0.05
   hitFX: {fileID: 5880797563127281583, guid: 6ab4f17394d92cd45896bbf27d19c29a, type: 3}
-  hitFXPoint: {fileID: 8185030669747430253}
+  hitFXPoint: {fileID: 1441342534298911162}
   hitFXLifetime: 2
   enemyType: 0
 --- !u!114 &2850122788360098812
