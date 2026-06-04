@@ -12,14 +12,14 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
 {
     [Header("Chase")]
     public float speed = 3f;
-    public float stopDistance = 2f;
-    public float resumeDistance = 2.3f;
+    public float stopDistance = 1.4f;
+    public float resumeDistance = 1.8f;
 
-    [SerializeField] private float repathRate = 0.1f;
+    [SerializeField] private float repathRate = 0.2f;
     private float nextRepathTime;
 
     [Header("Attack")]
-    public float attackRange = 1.8f;
+    public float attackRange = 2f;
     public float attackCooldown = 1.2f;
     public int attackDamage = 1;
 
@@ -64,7 +64,7 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
 
         rb.useGravity = false;
         rb.isKinematic = true;
-        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.interpolation = RigidbodyInterpolation.None;
         rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
 
         if (animator == null)
@@ -75,7 +75,7 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
         agent.speed = speed;
         agent.acceleration = 30f;
         agent.angularSpeed = 720f;
-        agent.autoBraking = false;
+        agent.autoBraking = true;
         agent.stoppingDistance = stopDistance;
         agent.obstacleAvoidanceType = ObstacleAvoidanceType.LowQualityObstacleAvoidance;
         agent.avoidancePriority = UnityEngine.Random.Range(20, 80);
@@ -103,12 +103,6 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
             player = p.transform;
             playerHealth = p.GetComponent<PlayerHealth>();
         }
-
-        if (resumeDistance <= stopDistance)
-            resumeDistance = stopDistance + 0.3f;
-
-        if (attackRange <= 0f)
-            attackRange = stopDistance * 0.9f;
     }
 
     public void Init(WaveManager manager)

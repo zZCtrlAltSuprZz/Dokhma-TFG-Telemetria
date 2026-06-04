@@ -619,8 +619,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 15.5
-  stopDistance: 0.4
-  resumeDistance: 0.6
+  stopDistance: 1
+  resumeDistance: 1.4
+  repathRate: 0.2
   attackRange: 3.5
   attackCooldown: 0.4
   attackDamage: 1
@@ -682,6 +683,7 @@ MonoBehaviour:
   hitFX: {fileID: 5880797563127281583, guid: 6ab4f17394d92cd45896bbf27d19c29a, type: 3}
   hitFXPoint: {fileID: 1441342534298911162}
   hitFXLifetime: 2
+  enemyType: 0
 --- !u!114 &2850122788360098812
 MonoBehaviour:
   m_ObjectHideFlags: 0

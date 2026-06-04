@@ -1,5 +1,5 @@
-using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerVisuals : MonoBehaviour
 {
@@ -16,7 +16,13 @@ public class PlayerVisuals : MonoBehaviour
     [SerializeField] private GameObject scytheObject;
 
     [Header("HUD")]
-    [SerializeField] private TMP_Text weaponText;
+    [SerializeField] private Image weaponIcon;
+
+    [Header("Weapon Sprites")]
+    [SerializeField] private Sprite pistolSprite;
+    [SerializeField] private Sprite daggerSprite;
+    [SerializeField] private Sprite minigunSprite;
+    [SerializeField] private Sprite scytheSprite;
 
     public void UpdateWeaponVisuals(WeaponData currentWeapon)
     {
@@ -28,6 +34,7 @@ public class PlayerVisuals : MonoBehaviour
         bool usingMinigun = currentWeapon == minigunData;
         bool usingScythe = currentWeapon == scytheData;
 
+        // Arma visible
         if (pistolObject != null)
             pistolObject.SetActive(usingPistol);
 
@@ -40,7 +47,17 @@ public class PlayerVisuals : MonoBehaviour
         if (scytheObject != null)
             scytheObject.SetActive(usingScythe);
 
-        if (weaponText != null)
-            weaponText.text = currentWeapon.hudText;
+        // Icono HUD
+        if (weaponIcon != null)
+        {
+            if (usingPistol)
+                weaponIcon.sprite = pistolSprite;
+            else if (usingDagger)
+                weaponIcon.sprite = daggerSprite;
+            else if (usingMinigun)
+                weaponIcon.sprite = minigunSprite;
+            else if (usingScythe)
+                weaponIcon.sprite = scytheSprite;
+        }
     }
 }
