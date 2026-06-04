@@ -24,7 +24,7 @@ MonoBehaviour:
   reserveAmmo: 70
   reloadTime: 1
   attackCooldown: 0.5
-  attackRange: 3
+  attackRange: 2
   damage: 1
   forwardOffset: 2
   enemyLayer:

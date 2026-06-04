@@ -20,6 +20,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField, Range(0f, 1f)] private float staminaPercentToRunAgain = 0.5f;
     [SerializeField] private Image staminaFillImage;
 
+    [Header("Dash Cooldown UI")]
+    [SerializeField] private GameObject dashCooldownUI;
+    [SerializeField] private Image dashCooldownFillImage;
+    [SerializeField] private bool hideDashUIUntilPerk = true;
+
     [Header("World Stamina UI")]
     [SerializeField] private GameObject staminaWorldUI;
     [SerializeField] private float staminaUIHideDelay = 0.5f;
@@ -84,8 +89,15 @@ public class PlayerMovement : MonoBehaviour
         {
             staminaWorldUI.SetActive(false);
         }
-
         UpdateStaminaUI();
+
+
+        if (dashCooldownUI != null)
+        {
+            dashCooldownUI.SetActive(false);
+        }
+        UpdateDashCooldownUI();
+
     }
 
     private void OnEnable()
@@ -199,6 +211,7 @@ public class PlayerMovement : MonoBehaviour
         controller.Move(movement * Time.deltaTime);
 
         UpdateStamina();
+        UpdateDashCooldownUI();
     }
 
     public void TryDash(Vector2 movementInput)
@@ -255,6 +268,7 @@ public class PlayerMovement : MonoBehaviour
         isDashing = true;
 
         nextDashTime = Time.time + dashCooldown;
+        UpdateDashCooldownUI();
 
         if (animator != null)
         {
@@ -286,6 +300,34 @@ public class PlayerMovement : MonoBehaviour
         }
 
         dashRoutine = null;
+    }
+    private void UpdateDashCooldownUI()
+    {
+        if (dashCooldownUI != null)
+        {
+            bool shouldShow = hasDash || !hideDashUIUntilPerk;
+            dashCooldownUI.SetActive(shouldShow);
+        }
+
+        if (dashCooldownFillImage == null)
+            return;
+
+        if (!hasDash)
+        {
+            dashCooldownFillImage.fillAmount = 0f;
+            return;
+        }
+
+        float remaining = DashCooldownRemaining;
+
+        if (remaining <= 0f)
+        {
+            dashCooldownFillImage.fillAmount = 1f;
+        }
+        else
+        {
+            dashCooldownFillImage.fillAmount = 1f - (remaining / dashCooldown);
+        }
     }
 
     private void ApplyGravity(ref Vector3 movement)
@@ -403,6 +445,8 @@ public class PlayerMovement : MonoBehaviour
         }
 
         hasDash = true;
+        UpdateDashCooldownUI();
+
 
         if (showDebug)
         {

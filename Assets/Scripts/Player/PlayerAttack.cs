@@ -112,7 +112,17 @@ public class PlayerAttack : MonoBehaviour
 
     private void OnDrawGizmosSelected()
     {
-        if (currentMeleeWeapon == null) return;
+        WeaponData weaponToDraw = currentMeleeWeapon;
+
+        if (weaponToDraw == null)
+        {
+            PlayerCombat combatRef = GetComponent<PlayerCombat>();
+
+            if (combatRef != null)
+                weaponToDraw = combatRef.CurrentWeapon;
+        }
+
+        if (weaponToDraw == null) return;
 
         Gizmos.color = Color.red;
 
@@ -126,8 +136,8 @@ public class PlayerAttack : MonoBehaviour
             attackDirection.Normalize();
         }
 
-        Vector3 center = transform.position + attackDirection * currentMeleeWeapon.forwardOffset;
+        Vector3 center = transform.position + attackDirection * weaponToDraw.forwardOffset;
 
-        Gizmos.DrawWireSphere(center, currentMeleeWeapon.attackRange);
+        Gizmos.DrawWireSphere(center, weaponToDraw.attackRange);
     }
 }

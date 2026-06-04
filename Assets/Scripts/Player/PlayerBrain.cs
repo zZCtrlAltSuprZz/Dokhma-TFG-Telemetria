@@ -63,7 +63,15 @@ public class PlayerBrain : MonoBehaviour
     {
         if (inputReader == null) return;
 
-        movement?.Move(inputReader.MovementInput, inputReader.SprintHeld); 
+
+        bool aimingWithStickNow = inputReader.AimStickInput.sqrMagnitude > 0.1f;
+
+        if (movement != null && movement.IsRunning && aimingWithStickNow)
+        {
+            inputReader.CancelGamepadSprintToggle();
+        }
+
+        movement?.Move(inputReader.MovementInput, inputReader.SprintHeld);
         UpdateMovementAnimation();
         
         if (wasRunning && movement != null && !movement.IsRunning)

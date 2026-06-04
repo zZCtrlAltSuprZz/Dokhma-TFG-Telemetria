@@ -18,6 +18,13 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
     [SerializeField] private float repathRate = 0.2f;
     private float nextRepathTime;
 
+    [Header("Natural Chase")]
+    [SerializeField] private float surroundRadius = 2.5f;
+    [SerializeField] private float surroundOffsetChangeRate = 2.5f;
+
+    private Vector3 personalChaseOffset;
+    private float nextOffsetChangeTime;
+
     [Header("Attack")]
     public float attackRange = 2f;
     public float attackCooldown = 1.2f;
@@ -103,6 +110,11 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
             player = p.transform;
             playerHealth = p.GetComponent<PlayerHealth>();
         }
+
+        if (resumeDistance <= stopDistance)
+            resumeDistance = stopDistance + 0.3f;
+
+        GeneratePersonalChaseOffset();
     }
 
     public void Init(WaveManager manager)
@@ -159,16 +171,48 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
         if (!agent.enabled || !agent.isOnNavMesh || player == null) return;
 
         agent.isStopped = false;
-        
+        agent.speed = speed;
+        agent.stoppingDistance = stopDistance;
+
+        if (Time.time >= nextOffsetChangeTime)
+        {
+            GeneratePersonalChaseOffset();
+        }
 
         if (Time.time >= nextRepathTime)
         {
             nextRepathTime = Time.time + repathRate;
-            agent.SetDestination(player.position);
+
+            Vector3 targetPosition = player.position + personalChaseOffset;
+
+            if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 2f, NavMesh.AllAreas))
+            {
+                agent.SetDestination(hit.position);
+            }
+            else
+            {
+                agent.SetDestination(player.position);
+            }
         }
 
         if (agent.desiredVelocity.sqrMagnitude > enemyLook.minTurnSqr)
             enemyLook.FaceDirection(agent.desiredVelocity);
+    }
+
+    private void GeneratePersonalChaseOffset()
+    {
+        Vector2 randomCircle = UnityEngine.Random.insideUnitCircle.normalized * surroundRadius;
+
+        personalChaseOffset = new Vector3(
+            randomCircle.x,
+            0f,
+            randomCircle.y
+        );
+
+        nextOffsetChangeTime = Time.time + UnityEngine.Random.Range(
+            surroundOffsetChangeRate * 0.7f,
+            surroundOffsetChangeRate * 1.3f
+        );
     }
 
     private void TryAttack(Vector3 toPlayer)
@@ -229,7 +273,6 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
             if (health != null)
             {
                 health.TakeDamage(attackDamage);
-
                 SpawnPlayerHitFX(health.transform);
             }
         }
@@ -252,20 +295,6 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
         nextAttackTime = Time.time + 0.05f;
     }
 
-    private void SpawnPlayerHitFX(Transform target)
-    {
-        if (playerHitFX == null || target == null) return;
-
-        Vector3 spawnPos = target.position + playerHitFXOffset;
-
-        GameObject fx = Instantiate(
-            playerHitFX,
-            spawnPos,
-            Quaternion.identity
-        );
-
-        Destroy(fx, playerHitFXLifetime);
-    }
     private void HandleHitEnd()
     {
         if (agent.enabled && agent.isOnNavMesh && player != null)
@@ -299,6 +328,20 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
             col.enabled = false;
     }
 
+    private void SpawnPlayerHitFX(Transform target)
+    {
+        if (playerHitFX == null || target == null) return;
+
+        Vector3 spawnPos = target.position + playerHitFXOffset;
+
+        GameObject fx = Instantiate(
+            playerHitFX,
+            spawnPos,
+            Quaternion.identity
+        );
+
+        Destroy(fx, playerHitFXLifetime);
+    }
 
     private void FacePlayer(Vector3 toPlayer)
     {
