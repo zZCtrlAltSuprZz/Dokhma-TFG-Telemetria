@@ -15,6 +15,7 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
     [SerializeField] private float warningTime = 1.5f;
     [SerializeField] private float fallSpeed = 25f;
     [SerializeField] private GameObject impactWarningPrefab;
+    [SerializeField] private float trackingWarningTime = 0.8f;
 
     [Header("Landing Damage")]
     [SerializeField] private float landingDamageRadius = 3f;
@@ -95,6 +96,7 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
 
     private float nextAttackTime;
     private float nextRepositionTime;
+    private Collider enemyCollider;
 
     private GameObject warningInstance;
 
@@ -107,6 +109,7 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         agent = GetComponent<NavMeshAgent>();
         damageReceiver = GetComponent<EnemyDamageReceiver>();
         enemyLook = GetComponent<EnemyLook>();
+        enemyCollider = GetComponent<Collider>();
 
         rb.useGravity = false;
         rb.isKinematic = true;
@@ -193,8 +196,31 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
     {
         Vector3 groundPosition = transform.position;
 
+        if (enemyCollider != null)
+            enemyCollider.enabled = false;
+
         if (impactWarningPrefab != null)
             warningInstance = Instantiate(impactWarningPrefab, groundPosition, Quaternion.identity);
+
+        float timer = 0f;
+
+        while (timer < trackingWarningTime)
+        {
+            timer += Time.deltaTime;
+
+            if (player != null)
+            {
+                groundPosition = player.position;
+
+                if (NavMesh.SamplePosition(groundPosition, out NavMeshHit hit, 3f, NavMesh.AllAreas))
+                    groundPosition = hit.position;
+
+                if (warningInstance != null)
+                    warningInstance.transform.position = groundPosition;
+            }
+
+            yield return null;
+        }
 
         transform.position = groundPosition + Vector3.up * fallHeight;
 
@@ -230,15 +256,18 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
 
         transform.position = groundPosition;
 
+        if (enemyCollider != null)
+            enemyCollider.enabled = true;
+
         DoLandingAreaDamage();
 
         if (warningInstance != null)
             Destroy(warningInstance);
 
-        if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 3f, NavMesh.AllAreas))
+        if (NavMesh.SamplePosition(transform.position, out NavMeshHit finalHit, 3f, NavMesh.AllAreas))
         {
             agent.enabled = true;
-            agent.Warp(hit.position);
+            agent.Warp(finalHit.position);
             agent.isStopped = false;
         }
 

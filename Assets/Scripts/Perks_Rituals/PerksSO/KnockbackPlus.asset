@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa21dfa03c5dff34a8d2cce133c12ef8, type: 3}
   m_Name: KnockbackPlus
   m_EditorClassIdentifier: 
-  perkName: KnockBackPlus
+  perkName: Hell Push
   description: More knockback to enemies
   iconNormal: {fileID: 21300000, guid: 42de6af404f2d634ab1323b159cf9a77, type: 3}
   iconHover: {fileID: 21300000, guid: b0826a7a955140e4f8c172f3bdff2c0d, type: 3}

@@ -115,6 +115,19 @@ public class PlayerAttack : MonoBehaviour
         return Quaternion.LookRotation(GetAttackDirection(), Vector3.up);
     }
 
+    public float GetMeleeCooldownRemaining()
+    {
+        return Mathf.Max(0f, nextAttackTime - Time.time);
+    }
+
+    public float GetMeleeCooldownTotal(WeaponData weapon)
+    {
+        if (combat == null || weapon == null)
+            return 1f;
+
+        return combat.GetFinalMeleeCooldown(weapon);
+    }
+
     private void OnDrawGizmosSelected()
     {
         WeaponData weaponToDraw = currentMeleeWeapon;

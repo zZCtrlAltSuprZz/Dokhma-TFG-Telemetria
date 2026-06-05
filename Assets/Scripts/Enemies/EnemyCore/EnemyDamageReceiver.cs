@@ -96,9 +96,15 @@ public class EnemyDamageReceiver : MonoBehaviour
 
         // Sonido de daño del enemigo concreto
         PlayHitSound();
-
-        if (SoulManager.Instance != null)
+        if (SoulManager.Instance == null)
+        {
+            Debug.LogError("NO HAY SOULMANAGER");
+        }
+        else
+        {
+            Debug.Log("SUMANDO ALMAS: " + soulsPerHit);
             SoulManager.Instance.AddSouls(soulsPerHit);
+        }
 
         if (currentHealth <= 0f)
         {

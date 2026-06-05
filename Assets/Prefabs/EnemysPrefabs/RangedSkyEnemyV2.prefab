@@ -1792,10 +1792,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a391fec70a166bb4a8399ecc61570ac7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fallHeight: 15
-  warningTime: 0.5
-  fallSpeed: 28
+  fallHeight: 13
+  warningTime: 0.2
+  fallSpeed: 41
   impactWarningPrefab: {fileID: 2242691710897051976, guid: 0b0ab10036c65af45af6a9c2507e80d7, type: 3}
+  trackingWarningTime: 0.4
   landingDamageRadius: 3
   landingDamage: 1
   landingKnockbackForce: 8

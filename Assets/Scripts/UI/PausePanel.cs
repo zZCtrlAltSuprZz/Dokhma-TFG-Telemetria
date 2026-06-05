@@ -66,6 +66,6 @@ public class PausePanel : MonoBehaviour
     {
         Time.timeScale = 1f;
 
-        UnityEditor.EditorApplication.isPlaying = false;
+        Application.Quit();
     }
 }

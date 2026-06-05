@@ -183,16 +183,15 @@ public class PlayerHealth : MonoBehaviour
         if (deathText != null)
             deathText.SetActive(true);
 
-        // Solo reproduce animación de muerte
         PlayDeathAnimation();
 
         GameTelemetryEvents.PlayerDied();
 
-
-        Time.timeScale = 0f;
+        
 
         if (showDebug)
             Debug.Log("Player died");
+
     }
 
     private void StopPlayerCompletely()

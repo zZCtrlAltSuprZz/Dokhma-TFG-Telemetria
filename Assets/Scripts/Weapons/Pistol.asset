@@ -30,6 +30,7 @@ MonoBehaviour:
   enemyLayer:
     serializedVersion: 2
     m_Bits: 64
+  weaponIcon: {fileID: 21300000, guid: 219bfdbd9d04d58469191d467defefb5, type: 3}
   useVFXPrefab: {fileID: 1069439422746091453, guid: e1980173590eabf4d9b9f8be3fe1273c, type: 3}
   vfxLifetime: 1
   attachVFXToFirePoint: 1

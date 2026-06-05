@@ -36,6 +36,7 @@ public class WeaponData : ScriptableObject
     public int damage = 1;
     public float forwardOffset = 1f;
     public LayerMask enemyLayer;
+    public Sprite weaponIcon;
 
     [Header("VFX")]
     public GameObject useVFXPrefab;

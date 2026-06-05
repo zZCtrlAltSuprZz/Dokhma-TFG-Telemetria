@@ -164,7 +164,7 @@ public class WeaponChest : MonoBehaviour
 
         if (!SoulManager.Instance.TrySpendSouls(cost))
         {
-            SetText("Not enough souls. Need " + cost + " souls.");
+            SetText("Not enough souls (" + cost+ ")");
             return;
         }
 
@@ -290,13 +290,13 @@ public class WeaponChest : MonoBehaviour
 
         if (state == ChestState.Closed)
         {
-            SetText("Press E / Square to open chest - " + cost + " souls for a weapon");
+            SetText("Interact for a weapon (" + cost + ")");
             return;
         }
 
         if (state == ChestState.RewardReady)
         {
-            SetText("Press E / Square to pick up weapon");
+            SetText("Interact to pick up weapon");
         }
     }
 

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aa21dfa03c5dff34a8d2cce133c12ef8, type: 3}
   m_Name: QuickRevPerk
   m_EditorClassIdentifier: 
-  perkName: Quick Rev
+  perkName: Heaven Aid
   description: Able to revive yourself after dying
   iconNormal: {fileID: 21300000, guid: aaacec25e832259498cc937d9177dfb1, type: 3}
   iconHover: {fileID: 21300000, guid: 11beb30740e03fe499b2c49768887191, type: 3}

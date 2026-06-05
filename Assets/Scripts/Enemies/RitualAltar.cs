@@ -170,7 +170,7 @@ public class RitualAltar : MonoBehaviour
         if (!SoulManager.Instance.TrySpendSouls(ritualCost))
         {
             if (interactText != null)
-                interactText.text = notEnoughSoulsMessage + " - Need " + ritualCost;
+                interactText.text = notEnoughSoulsMessage + "(" + ritualCost+")";
 
             if (showDebug)
                 Debug.Log("No tienes suficientes almas para iniciar el ritual");
@@ -310,12 +310,12 @@ public class RitualAltar : MonoBehaviour
                 if (SoulManager.Instance != null &&
                     SoulManager.Instance.currentSouls >= ritualCost)
                 {
-                    interactText.text = startMessage + " - Cost: " + ritualCost + " souls";
+                    interactText.text = startMessage + "(" + ritualCost + ")";
                 }
-                else
+                /*else
                 {
                     interactText.text = notEnoughSoulsMessage + " - Need " + ritualCost;
-                }
+                }*/
                 break;
 
             case RitualState.Completed:

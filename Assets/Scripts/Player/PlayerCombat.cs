@@ -56,6 +56,9 @@ public class PlayerCombat : MonoBehaviour
     private bool hasDoubleTapPerk;
     private bool hasStrongKnockbackPerk;
 
+    private float reloadStartTime;
+    private float reloadEndTime;
+
     private float nextFireTime;
 
     public System.Action<WeaponData> OnWeaponChanged;
@@ -186,6 +189,53 @@ public class PlayerCombat : MonoBehaviour
 
     }
 
+    // CD
+    public float GetRangedCooldownRemaining()
+    {
+        return Mathf.Max(0f, nextFireTime - Time.time);
+    }
+
+    public float GetRangedCooldownTotal(WeaponData weapon)
+    {
+        if (weapon == null)
+            return 1f;
+
+        return weapon.fireRate;
+    }
+
+    public float GetReloadRemainingNormalized()
+    {
+        if (!isReloading || reloadingWeapon == null)
+            return 0f;
+
+        float total = reloadEndTime - reloadStartTime;
+        float remaining = reloadEndTime - Time.time;
+
+        if (total <= 0f)
+            return 0f;
+
+        return Mathf.Clamp01(remaining / total);
+    }
+
+    public float GetReloadRemainingSeconds()
+    {
+        if (!isReloading)
+            return 0f;
+
+        return Mathf.Max(0f, reloadEndTime - Time.time);
+    }
+
+    public float GetFinalReloadTimePublic(WeaponData weapon)
+    {
+        return GetFinalReloadTime(weapon);
+    }
+
+    public bool IsCurrentWeaponReloading()
+    {
+        return isReloading;
+    }
+    //CD END
+
     private void InitAmmo(WeaponData weapon)
     {
         if (weapon == null || weapon.attackMode != WeaponAttackMode.Ranged)
@@ -249,6 +299,8 @@ public class PlayerCombat : MonoBehaviour
         {
             return;
         }
+        reloadStartTime = Time.time;
+        reloadEndTime = Time.time + GetFinalReloadTime(CurrentWeapon);
 
         animator.ResetTrigger(reloadTrigger);
         animator.SetFloat(reloadSpeedParam, GetReloadAnimatorSpeed(weapon));

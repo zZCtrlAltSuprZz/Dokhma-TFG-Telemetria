@@ -33,6 +33,8 @@ public class DeathScreenUI : MonoBehaviour
 
     private void ShowDeathScreen()
     {
+        Debug.Log("DEATH SCREEN CALLED");
+
         if (shown) return;
         shown = true;
 
@@ -76,8 +78,10 @@ public class DeathScreenUI : MonoBehaviour
         if (waveText != null)
             waveText.text = "Round reached: " + reachedWave;
 
+        if (MusicManager.Instance != null)
+            MusicManager.Instance.PlayDeathMusic();
+
         Time.timeScale = 0f;
-        MusicManager.Instance.PlayDeathMusic();
     }
 
     private string FormatTime(float seconds)

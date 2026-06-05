@@ -90,7 +90,7 @@ public class DoorUnlock : MonoBehaviour
         if (!SoulManager.Instance.TrySpendSouls(cost))
         {
             if (interactionText != null)
-                interactionText.text = "Need: " + cost + " souls";
+                interactionText.text = "Interact to open (" + cost + ")";
 
             return;
         }
@@ -138,7 +138,7 @@ public class DoorUnlock : MonoBehaviour
         {
 
             interactionText.gameObject.SetActive(true);
-            interactionText.text = "Press E / Square Cost: " + cost + " souls";
+            interactionText.text = "Interact to open (" + cost + ")";
         }
         if (interactionPanel != null)
             interactionPanel.SetActive(true);

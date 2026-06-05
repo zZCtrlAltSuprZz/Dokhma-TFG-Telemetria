@@ -16,7 +16,6 @@ public class SoulManager : MonoBehaviour
 
     [SerializeField] private GameObject ingameCanvas;
 
-
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -24,14 +23,19 @@ public class SoulManager : MonoBehaviour
             Destroy(gameObject);
             return;
         }
-        ingameCanvas.SetActive(true);
+
         Instance = this;
+
+        if (ingameCanvas != null)
+            ingameCanvas.SetActive(true);
+
         UpdateUI();
     }
 
     public void AddSouls(int amount)
     {
         currentSouls += amount;
+
         if (currentSouls < 0)
             currentSouls = 0;
 
@@ -40,7 +44,6 @@ public class SoulManager : MonoBehaviour
         if (scoreAnimator != null)
             scoreAnimator.SetTrigger("Pulse");
 
-        // Telemetry
         GameTelemetryEvents.SoulsGained(amount);
     }
 
@@ -50,9 +53,9 @@ public class SoulManager : MonoBehaviour
             return false;
 
         currentSouls -= amount;
+
         UpdateUI();
 
-        // Telemetry
         GameTelemetryEvents.SoulsSpent(amount);
 
         if (scoreAnimator != null)
@@ -68,7 +71,17 @@ public class SoulManager : MonoBehaviour
 
     private void UpdateUI()
     {
-        if (soulsText != null)
-            soulsText.text = "Souls: " + currentSouls;
+        if (soulsText == null)
+        {
+            Debug.LogWarning("SoulManager: soulsText no está asignado.");
+            return;
+        }
+
+        soulsText.text = "Souls: " + currentSouls;
     }
+    public void DebugAdd100Souls()
+    {
+        AddSouls(100);
+    }
+
 }

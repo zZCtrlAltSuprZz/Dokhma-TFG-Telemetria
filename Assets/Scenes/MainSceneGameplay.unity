@@ -1840,57 +1840,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3921387859861612902, guid: fc7cb885b3bc78b4a918e204c1ce01c0, type: 3}
   m_PrefabInstance: {fileID: 194214673}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &200481656
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 200481658}
-  - component: {fileID: 200481657}
-  m_Layer: 0
-  m_Name: NailsHUD
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &200481657
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200481656}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f48f29c0aba07084d9924bf8004373a7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  nailObtained: {fileID: 21300000, guid: b079592d1db73084f9334fd608a12193, type: 3}
-  nailNotObtained: {fileID: 21300000, guid: 15019b6283d80c84f9a7de4aae3227a0, type: 3}
-  nailSlots:
-  - {fileID: 2015397823}
-  - {fileID: 2133350517}
-  - {fileID: 2038628689}
-  - {fileID: 95666778}
---- !u!4 &200481658
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 200481656}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2537.2563, y: 0, z: 2429.6792}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &220039161 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 440768, guid: ec3b1832db095be40bd5e19a60f13fbe, type: 3}
@@ -2498,7 +2447,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 800.2, y: 325}
+  m_AnchoredPosition: {x: 812.2, y: 445}
   m_SizeDelta: {x: 82.7402, y: 82.7405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &293935592
@@ -4106,8 +4055,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -120, y: -302}
-  m_SizeDelta: {x: 392.4977, y: 63.2757}
+  m_AnchoredPosition: {x: -128.45471, y: -316.37305}
+  m_SizeDelta: {x: 541.3011, y: 92.0218}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &510655577
 MonoBehaviour:
@@ -4511,7 +4460,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 729.8, y: 325}
+  m_AnchoredPosition: {x: 741.8, y: 445}
   m_SizeDelta: {x: 82.7402, y: 82.7405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &547237135
@@ -5296,6 +5245,81 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 440768, guid: ec3b1832db095be40bd5e19a60f13fbe, type: 3}
   m_PrefabInstance: {fileID: 1939489791}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &649085683
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 649085684}
+  - component: {fileID: 649085686}
+  - component: {fileID: 649085685}
+  m_Layer: 5
+  m_Name: IconWeaponBorderCd
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &649085684
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649085683}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1396256809}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 850, y: -369}
+  m_SizeDelta: {x: 130.1442, y: 130.14}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &649085685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649085683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.385947, g: 0.554596, b: 0.5566038, a: 0.14901961}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 3
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &649085686
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 649085683}
+  m_CullTransparentMesh: 1
 --- !u!1 &651907009
 GameObject:
   m_ObjectHideFlags: 0
@@ -6564,7 +6588,7 @@ PrefabInstance:
       objectReference: {fileID: 736132038}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: ritualCost
-      value: 625
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: audioSource
@@ -9218,9 +9242,6 @@ MonoBehaviour:
     - enemyName: SimpleEnemy1
       enemyPrefab: {fileID: 7553377709098772736, guid: cc1cb103955566d4eb1e3be3d78db381, type: 3}
       amount: 8
-    - enemyName: SimpleEnemy1
-      enemyPrefab: {fileID: 5537767893191302026, guid: 8416d9b504dbfb24195b1a0b8b4914dc, type: 3}
-      amount: 8
     maxAliveEnemies: 6
     spawnInterval: 1
     maxSpawnDistanceToPlayer: 300
@@ -9235,7 +9256,7 @@ MonoBehaviour:
     spawnInterval: 2
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 3
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 3
     enemies:
     - enemyName: 
@@ -9245,7 +9266,7 @@ MonoBehaviour:
     spawnInterval: 5
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 5
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 4
     enemies:
     - enemyName: 
@@ -9258,7 +9279,7 @@ MonoBehaviour:
     spawnInterval: 1.8
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 3
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 5
     enemies:
     - enemyName: 
@@ -9271,7 +9292,7 @@ MonoBehaviour:
     spawnInterval: 1.7
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 2.6
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 6
     enemies:
     - enemyName: 
@@ -9284,7 +9305,7 @@ MonoBehaviour:
     spawnInterval: 1.5
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 2.5
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 7
     enemies:
     - enemyName: 
@@ -9297,7 +9318,7 @@ MonoBehaviour:
     spawnInterval: 1.4
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 0.8
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 8
     enemies:
     - enemyName: 
@@ -9310,7 +9331,7 @@ MonoBehaviour:
     spawnInterval: 1.4
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 2.1
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 9
     enemies:
     - enemyName: 
@@ -9336,7 +9357,7 @@ MonoBehaviour:
     spawnInterval: 1
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 1.9
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 11
     enemies:
     - enemyName: 
@@ -9349,7 +9370,7 @@ MonoBehaviour:
     spawnInterval: 0.8
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 1.2
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 12
     enemies:
     - enemyName: 
@@ -9362,7 +9383,7 @@ MonoBehaviour:
     spawnInterval: 0.7
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 1.2
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 13
     enemies:
     - enemyName: 
@@ -9375,7 +9396,7 @@ MonoBehaviour:
     spawnInterval: 0.5
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 0.9
+    rangedSpawnRadiusAroundPlayer: 2
   - waveName: Wave 14
     enemies:
     - enemyName: 
@@ -9388,7 +9409,7 @@ MonoBehaviour:
     spawnInterval: 0.4
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 0.8
+    rangedSpawnRadiusAroundPlayer: 2
   timeBetweenWaves: 5
   audioSource: {fileID: 1182457513}
   roundCompleteSound: {fileID: 8300000, guid: 529eea066ab2f124ab093583b9fb43c6, type: 3}
@@ -9586,7 +9607,7 @@ PrefabInstance:
       objectReference: {fileID: 736132038}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: ritualCost
-      value: 700
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: audioSource
@@ -9602,7 +9623,7 @@ PrefabInstance:
       objectReference: {fileID: 2992039}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: killsRequired
-      value: 18
+      value: 20
       objectReference: {fileID: 0}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: ritualFXPoint
@@ -10688,7 +10709,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soulsText: {fileID: 1711236667}
-  currentSouls: 5000
+  currentSouls: 0
   scoreAnimator: {fileID: 1711236670}
   ingameCanvas: {fileID: 1714256843}
 --- !u!4 &1273453277
@@ -11591,6 +11612,7 @@ GameObject:
   - component: {fileID: 1396256809}
   - component: {fileID: 1396256811}
   - component: {fileID: 1396256810}
+  - component: {fileID: 1396256814}
   - component: {fileID: 1396256812}
   - component: {fileID: 1396256813}
   m_Layer: 5
@@ -11615,6 +11637,7 @@ RectTransform:
   - {fileID: 1706811563}
   - {fileID: 115574526}
   - {fileID: 1711236669}
+  - {fileID: 649085684}
   - {fileID: 1893021408}
   - {fileID: 374965372}
   - {fileID: 1957776885}
@@ -11691,6 +11714,22 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
+--- !u!114 &1396256814
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1396256808}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31180c94cdf1a5c4ca65fdd8b42e4214, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerCombat: {fileID: 3095670264333236225}
+  playerAttack: {fileID: 3230307765698303509}
+  weaponIconImage: {fileID: 1893021409}
+  cooldownFillImage: {fileID: 649085685}
 --- !u!4 &1396953857 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 440768, guid: ec3b1832db095be40bd5e19a60f13fbe, type: 3}
@@ -13105,8 +13144,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 182, y: -288}
-  m_SizeDelta: {x: 392.4977, y: 63.2757}
+  m_AnchoredPosition: {x: 179.21103, y: -302.37305}
+  m_SizeDelta: {x: 522.1979, y: 92.0218}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1620908986
 MonoBehaviour:
@@ -13862,7 +13901,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 660, y: 325}
+  m_AnchoredPosition: {x: 672, y: 445}
   m_SizeDelta: {x: 82.7402, y: 82.7405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1649183605
@@ -13947,7 +13986,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1671052260
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14490,14 +14529,14 @@ RectTransform:
   m_GameObject: {fileID: 1711236666}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 1396256809}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -752.62, y: -461.47}
+  m_AnchoredPosition: {x: -752.62, y: -465}
   m_SizeDelta: {x: 313.43665, y: 73.72742}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!95 &1711236670
@@ -15414,7 +15453,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893021407}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -15423,7 +15462,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 802.34296, y: -308.3598}
+  m_AnchoredPosition: {x: 850, y: -369}
   m_SizeDelta: {x: 130.1442, y: 130.14}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1893021409
@@ -15983,7 +16022,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 755.1, y: -422}
+  m_AnchoredPosition: {x: 794, y: -485}
   m_SizeDelta: {x: 235.4, y: 100.5117}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1957776886
@@ -16411,7 +16450,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1999848229}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1141869088}
+        m_TargetAssemblyTypeName: PausePanel, Assembly-CSharp
+        m_MethodName: ExitGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1999848229
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -17023,7 +17074,7 @@ PrefabInstance:
       objectReference: {fileID: 736132038}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: ritualCost
-      value: 580
+      value: 750
       objectReference: {fileID: 0}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: audioSource
@@ -17039,7 +17090,7 @@ PrefabInstance:
       objectReference: {fileID: 2992039}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: killsRequired
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: ritualFXPoint
@@ -17719,7 +17770,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 870, y: 325}
+  m_AnchoredPosition: {x: 882, y: 445}
   m_SizeDelta: {x: 82.7402, y: 82.7405}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2145400967
@@ -17994,8 +18045,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2992039}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
+      propertyPath: startMessage
+      value: 'Interact to start ritual '
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: killsRequired
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: ritualFXPoint
@@ -18012,6 +18067,10 @@ PrefabInstance:
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: ritualFXLifetime
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
+      propertyPath: claimRewardMessage
+      value: Interact to claim your perk
       objectReference: {fileID: 0}
     - target: {fileID: 1679210705402608547, guid: 868ebb729b57124499cef4536728c9fd, type: 3}
       propertyPath: notEnoughSoulsMessage
@@ -18892,8 +18951,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startingWeapons:
-  - {fileID: 11400000, guid: f3d13fba5b264304ba79bc6f2750c926, type: 2}
-  - {fileID: 11400000, guid: 37b493aa0bd946341885f6c25546d3d6, type: 2}
+  - {fileID: 11400000, guid: 2b895fbc03146194fa85b8d719f61ecb, type: 2}
   ownedWeapons: []
   currentWeaponIndex: 0
   maxOwnedWeapons: 2
@@ -21110,8 +21168,7 @@ SceneRoots:
   - {fileID: 1067889940}
   - {fileID: 1182457512}
   - {fileID: 1273453277}
-  - {fileID: 1141869089}
-  - {fileID: 200481658}
-  - {fileID: 374749997}
   - {fileID: 1530191790}
   - {fileID: 1027621066}
+  - {fileID: 1141869089}
+  - {fileID: 374749997}
