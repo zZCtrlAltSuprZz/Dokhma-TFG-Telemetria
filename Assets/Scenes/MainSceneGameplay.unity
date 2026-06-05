@@ -10713,7 +10713,7 @@ MonoBehaviour:
       amount: 2
     - enemyName: 
       enemyPrefab: {fileID: 7553377709098772736, guid: e6ce2dea4defe7f4f9cb1a13aad00549, type: 3}
-      amount: 0
+      amount: 29
     maxAliveEnemies: 21
     spawnInterval: 1.7
     maxSpawnDistanceToPlayer: 300
@@ -10779,7 +10779,7 @@ MonoBehaviour:
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 7d72c0020d2173b4baa92bb10d6f210e, type: 3}
       amount: 4
-    maxAliveEnemies: 53
+    maxAliveEnemies: 48
     spawnInterval: 1
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
@@ -10792,7 +10792,7 @@ MonoBehaviour:
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 3cd70d533d161bd429714a64f4e34d98, type: 3}
       amount: 4
-    maxAliveEnemies: 56
+    maxAliveEnemies: 48
     spawnInterval: 0.8
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
@@ -21642,7 +21642,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2188030137690300395, guid: 0c3a7b737d223d0459b7c72b66284500, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2727129218376458846, guid: 0c3a7b737d223d0459b7c72b66284500, type: 3}
       propertyPath: m_LocalScale.x
