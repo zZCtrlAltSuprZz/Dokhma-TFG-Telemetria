@@ -1,23 +1,33 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.InputSystem;
+using UnityEngine.EventSystems;
+using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-public class PauseMenu : MonoBehaviour
+public class PausePanel : MonoBehaviour
 {
-    [Header("Referencias")]
     [SerializeField] private GameObject pausePanel;
-    [SerializeField] private MenuButtons pauseMenuButtons;
+    [SerializeField] private Button firstSelectedButton;
 
-    private bool isPaused = false;
-
-    private void Start()
-    {
-        pausePanel.SetActive(false);
-    }
+    private bool isPaused;
 
     private void Update()
     {
-        if (Keyboard.current.escapeKey.wasPressedThisFrame)
+        bool pausePressed = false;
+
+        if (Keyboard.current != null &&
+            Keyboard.current.escapeKey.wasPressedThisFrame)
+        {
+            pausePressed = true;
+        }
+
+        if (Gamepad.current != null &&
+            Gamepad.current.startButton.wasPressedThisFrame)
+        {
+            pausePressed = true;
+        }
+
+        if (pausePressed)
         {
             if (isPaused)
                 Resume();
@@ -26,26 +36,36 @@ public class PauseMenu : MonoBehaviour
         }
     }
 
-    
-
-    public void Resume()
-    {
-        pauseMenuButtons.HideIcon();
-        pausePanel.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
-    }
-
     public void Pause()
     {
         pausePanel.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(firstSelectedButton.gameObject);
     }
 
-    public void GoToMenu()
+    public void Resume()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+
+        pausePanel.SetActive(false);
+        Time.timeScale = 1f;
+        isPaused = false;
+    }
+    public void RestartGame()
     {
         Time.timeScale = 1f;
-        SceneManager.LoadScene("Splash");
+        isPaused = false;
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void ExitGame()
+    {
+        Time.timeScale = 1f;
+
+        UnityEditor.EditorApplication.isPlaying = false;
     }
 }

@@ -22,7 +22,7 @@ MonoBehaviour:
   fireRate: 0.08
   magazineSize: 50
   reserveAmmo: 150
-  reloadTime: 2.6
+  reloadTime: 4
   attackCooldown: 0.5
   attackRange: 1.5
   damage: 1
@@ -33,4 +33,11 @@ MonoBehaviour:
   useVFXPrefab: {fileID: 1069439422746091453, guid: 3c49b94d365275345ada00271f75b0f1, type: 3}
   vfxLifetime: 1
   attachVFXToFirePoint: 1
+  attackSounds:
+  - {fileID: 8300000, guid: 6462716091bc6bf4f8ed3d5814350891, type: 3}
+  attackVolume: 0.05
+  reloadSound: {fileID: 8300000, guid: 0b16d71b32aa51444a4d76b42fb89aa9, type: 3}
+  reloadVolume: 0.1
+  equipSound: {fileID: 8300000, guid: a541198e0e7c942499f419bc9357a3fe, type: 3}
+  equipVolume: 0.4
   usesPistolPose: 1

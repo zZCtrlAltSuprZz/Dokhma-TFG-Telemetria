@@ -114,8 +114,6 @@ public class PlayerBodyAimController : MonoBehaviour
 
         angle = Mathf.Clamp(angle, -maxSpineAngle, maxSpineAngle);
 
-        Debug.Log("AimDir: " + aimDirection + " | Angle: " + angle);
-
         spineBone.localRotation =
             spineStartLocalRotation * Quaternion.Euler(0f, angle, 0f);
     }

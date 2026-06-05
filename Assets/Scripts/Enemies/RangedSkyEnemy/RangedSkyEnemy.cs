@@ -38,6 +38,21 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform shootPoint;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+
+    [SerializeField] private AudioClip fallingSound;
+    [SerializeField] private float fallingVolume = 1f;
+
+    [SerializeField] private AudioClip shootSound;
+    [SerializeField] private float shootVolume = 1f;
+
+    [SerializeField] private AudioClip attackHitPlayerClip;
+    [SerializeField] private float attackHitPlayerVolume = 1f;
+
+    [SerializeField] private float minAttackPitch = 0.95f;
+    [SerializeField] private float maxAttackPitch = 1.05f;
+
     [Header("Line Of Sight")]
     [SerializeField] private LayerMask obstacleLayer;
     [SerializeField] private float lineOfSightHeight = 1.2f;
@@ -58,13 +73,11 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
     [SerializeField] private float playerHitFXLifetime = 2f;
     [SerializeField] private Vector3 playerHitFXOffset = Vector3.up;
 
-    // Eventos
     public event Action<RangedSkyEnemy> OnEnemyDied;
     public event Action<IRitualEnemy> OnRitualEnemyDied;
 
     public Transform Transform => transform;
 
-    // Referencias
     private Transform player;
     private PlayerHealth playerHealth;
 
@@ -75,20 +88,16 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
 
     private WaveManager waveManager;
 
-    // Estados
     private bool hasLanded;
     private bool isAttacking;
     private bool canAttack;
     private bool deathNotified;
 
-    // Timers
     private float nextAttackTime;
     private float nextRepositionTime;
 
-    // Otros
     private GameObject warningInstance;
 
-    // Helpers para ahorrar líneas
     private bool AgentReady => agent != null && agent.enabled && agent.isOnNavMesh;
     private bool PlayerAlive => playerHealth != null && playerHealth.IsAlive;
 
@@ -108,9 +117,10 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         agent.enabled = false;
 
         if (animator == null)
-        {
             animator = GetComponentInChildren<Animator>();
-        }
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
 
         damageReceiver.OnDeath += HandleDeath;
         damageReceiver.OnHitStart += HandleHitStart;
@@ -120,9 +130,7 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
     private void OnDestroy()
     {
         if (damageReceiver == null)
-        {
             return;
-        }
 
         damageReceiver.OnDeath -= HandleDeath;
         damageReceiver.OnHitStart -= HandleHitStart;
@@ -149,13 +157,9 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
 
     private void Update()
     {
-        // Cortamos Update rápido si algo invalida al enemigo
         if (damageReceiver.IsDead || damageReceiver.IsStunned || player == null || !hasLanded)
-        {
             return;
-        }
 
-        // Si el player murió, paramos IA
         if (!PlayerAlive)
         {
             StopAgent();
@@ -167,91 +171,70 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
 
         float distance = toPlayer.magnitude;
 
-        // Mirar siempre al player
         enemyLook.FaceDirection(toPlayer);
 
-        // Movimiento
         bool hasLineOfSight = HasLineOfSight();
 
         if (!isAttacking)
         {
             if (hasLineOfSight)
-            {
                 HandleMovement(distance);
-            }
             else
-            {
                 MoveToGoodShootingPosition();
-            }
         }
 
         if (hasLineOfSight)
-        {
             HandleAttack(distance);
-        }
 
-        // Animación movimiento
         UpdateMovementAnimation();
     }
 
-    // Spawn cayendo del cielo
     private IEnumerator SpawnFromSkyRoutine()
     {
         Vector3 groundPosition = transform.position;
 
-        // Warning visual
         if (impactWarningPrefab != null)
-        {
             warningInstance = Instantiate(impactWarningPrefab, groundPosition, Quaternion.identity);
-        }
 
-        // Posición inicial arriba
         transform.position = groundPosition + Vector3.up * fallHeight;
 
         yield return new WaitForSeconds(warningTime);
 
+        PlaySound(fallingSound, fallingVolume);
+
         bool triggeredLandAnim = false;
 
-        // Caída
         while (Vector3.Distance(transform.position, groundPosition) > 0.1f)
         {
             float distanceToGround = Vector3.Distance(transform.position, groundPosition);
 
-            // Trigger animación aterrizaje
             if (!triggeredLandAnim && distanceToGround < landAnimTriggerDistance)
             {
                 triggeredLandAnim = true;
 
                 if (animator != null && !string.IsNullOrEmpty(landTrigger))
-                {
                     animator.SetTrigger(landTrigger);
-                }
             }
 
-            // Movimiento caída
-            transform.position = Vector3.MoveTowards(transform.position, groundPosition, fallSpeed * Time.deltaTime);
+            transform.position = Vector3.MoveTowards(
+                transform.position,
+                groundPosition,
+                fallSpeed * Time.deltaTime
+            );
 
-            // Mirar al player durante caída
             if (player != null)
-            {
                 enemyLook.FaceTarget(player);
-            }
 
             yield return null;
         }
 
         transform.position = groundPosition;
 
-        // Daño al aterrizar
         DoLandingAreaDamage();
 
-        // Destruir warning
         if (warningInstance != null)
-        {
             Destroy(warningInstance);
-        }
 
-        // Activar NavMesh
         if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 3f, NavMesh.AllAreas))
         {
             agent.enabled = true;
@@ -264,7 +247,6 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         StartCoroutine(EnableCombatAfterDelay());
     }
 
-    // Delay antes de empezar a atacar
     private IEnumerator EnableCombatAfterDelay()
     {
         canAttack = false;
@@ -274,43 +256,31 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         canAttack = true;
     }
 
-    // Movimiento principal IA
     private void HandleMovement(float distance)
     {
         if (!AgentReady || Time.time < nextRepositionTime)
-        {
             return;
-        }
 
         nextRepositionTime = Time.time + repositionInterval;
 
         Vector3 targetPosition;
 
-        // Muy cerca -> huir
         if (distance < fleeDistance)
         {
             Vector3 dir = (transform.position - player.position).normalized;
-
             targetPosition = transform.position + dir * strafeDistance;
         }
-
-        // Muy lejos -> acercarse
         else if (distance > maxDistance)
         {
             Vector3 dir = (player.position - transform.position).normalized;
-
             targetPosition = transform.position + dir * strafeDistance;
         }
-
-        // Distancia media -> strafe lateral
         else
         {
             Vector3 side = UnityEngine.Random.value < 0.5f ? transform.right : -transform.right;
-
             targetPosition = transform.position + side * strafeDistance;
         }
 
-        // Buscar punto válido NavMesh
         if (NavMesh.SamplePosition(targetPosition, out NavMeshHit hit, 6f, NavMesh.AllAreas))
         {
             agent.isStopped = false;
@@ -318,13 +288,10 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         }
     }
 
-
     private bool HasLineOfSight()
     {
         if (player == null)
-        {
             return false;
-        }
 
         Vector3 start = transform.position + Vector3.up * lineOfSightHeight;
         Vector3 end = player.position + Vector3.up * lineOfSightHeight;
@@ -336,14 +303,10 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
     private void MoveToGoodShootingPosition()
     {
         if (!AgentReady || player == null)
-        {
             return;
-        }
 
         if (Time.time < nextRepositionTime)
-        {
             return;
-        }
 
         nextRepositionTime = Time.time + repositionInterval;
 
@@ -356,31 +319,22 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         for (int i = 0; i < pointsToCheck; i++)
         {
             float angle = i * Mathf.PI * 2f / pointsToCheck;
-
             Vector3 dir = new Vector3(Mathf.Cos(angle), 0f, Mathf.Sin(angle));
-
             Vector3 testPosition = player.position + dir * desiredDistance;
 
             if (!NavMesh.SamplePosition(testPosition, out NavMeshHit hit, 3f, NavMesh.AllAreas))
-            {
                 continue;
-            }
 
             if (!PositionHasLineOfSight(hit.position))
-            {
                 continue;
-            }
 
             bestPosition = hit.position;
             foundPosition = true;
-
             break;
         }
 
         if (!foundPosition)
-        {
             bestPosition = player.position;
-        }
 
         agent.isStopped = false;
         agent.SetDestination(bestPosition);
@@ -389,9 +343,7 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
     private bool PositionHasLineOfSight(Vector3 position)
     {
         if (player == null)
-        {
             return false;
-        }
 
         Vector3 start = position + Vector3.up * lineOfSightHeight;
         Vector3 end = player.position + Vector3.up * lineOfSightHeight;
@@ -400,20 +352,16 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         return !Physics.Raycast(start, dir.normalized, dir.magnitude, obstacleLayer);
     }
 
-    // Lógica ataque
     private void HandleAttack(float distance)
     {
         if (!CanShoot(distance))
-        {
             return;
-        }
 
         nextAttackTime = Time.time + attackCooldown;
 
         StartCoroutine(ShootRoutine());
     }
 
-    // Condiciones para disparar
     private bool CanShoot(float distance)
     {
         return PlayerAlive
@@ -423,18 +371,14 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
             && Time.time >= nextAttackTime;
     }
 
-    // Rutina ataque
     private IEnumerator ShootRoutine()
     {
         isAttacking = true;
 
         StopAgent();
 
-        // Trigger animación
         if (animator != null && !string.IsNullOrEmpty(shootTrigger))
-        {
             animator.SetTrigger(shootTrigger);
-        }
 
         yield return new WaitForSeconds(0.25f);
 
@@ -452,30 +396,30 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         }
     }
 
-    // Disparo proyectil
     private void Shoot()
     {
         if (projectilePrefab == null || shootPoint == null || player == null || !PlayerAlive)
-        {
             return;
-        }
 
         Vector3 targetPos = player.position;
         targetPos.y = shootPoint.position.y;
 
         Vector3 dir = (targetPos - shootPoint.position).normalized;
 
-        GameObject projectile = Instantiate(projectilePrefab, shootPoint.position, Quaternion.LookRotation(dir));
+        GameObject projectile = Instantiate(
+            projectilePrefab,
+            shootPoint.position,
+            Quaternion.LookRotation(dir)
+        );
+
+        PlaySound(shootSound, shootVolume);
 
         EnemyProjectile enemyProjectile = projectile.GetComponent<EnemyProjectile>();
 
         if (enemyProjectile != null)
-        {
             enemyProjectile.Init(dir, attackDamage);
-        }
     }
 
-    // Daño área aterrizaje
     private void DoLandingAreaDamage()
     {
         SpawnFX(landingExplosionFX, transform.position, landingExplosionFXLifetime);
@@ -487,37 +431,28 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
             PlayerHealth health = hit.GetComponentInParent<PlayerHealth>();
 
             if (health == null || !health.IsAlive)
-            {
                 continue;
-            }
 
-            // Daño
             health.TakeDamage(landingDamage);
-
+            PlayAttackHitPlayerSound();
             SpawnPlayerHitFX(health.transform);
 
-            // Knockback
             Vector3 knockDir = hit.transform.position - transform.position;
             knockDir.y = 0f;
 
             if (knockDir.sqrMagnitude < 0.001f)
-            {
                 knockDir = transform.forward;
-            }
 
             StartCoroutine(DoPlayerKnockback(hit.transform, knockDir.normalized));
         }
     }
 
-    // Knockback player
     private IEnumerator DoPlayerKnockback(Transform target, Vector3 direction)
     {
         CharacterController controller = target.GetComponentInParent<CharacterController>();
 
         if (controller == null)
-        {
             yield break;
-        }
 
         Vector3 velocity = direction * landingKnockbackForce;
 
@@ -535,26 +470,21 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         }
     }
 
-    // Animación movimiento
     private void UpdateMovementAnimation()
     {
         if (animator == null || !AgentReady)
-        {
             return;
-        }
 
         bool isMoving = agent.velocity.magnitude > 0.1f && !agent.isStopped;
 
         animator.SetBool(moveBool, isMoving);
     }
 
-    // Recibir daño
     public void ApplyHit(int damage, Vector3 hitDirection)
     {
         damageReceiver.ApplyHit(damage, hitDirection);
     }
 
-    // Inicio hitstun
     private void HandleHitStart()
     {
         isAttacking = false;
@@ -563,25 +493,20 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         StopAgent();
     }
 
-    // Fin hitstun
     private void HandleHitEnd()
     {
         canAttack = true;
         nextRepositionTime = 0f;
 
         if (AgentReady)
-        {
             agent.isStopped = false;
-        }
     }
 
-    // Muerte
     private void HandleDeath()
     {
         if (!deathNotified && waveManager != null)
         {
             waveManager.NotifyEnemyDied();
-
             deathNotified = true;
         }
 
@@ -589,44 +514,47 @@ public class RangedSkyEnemy : MonoBehaviour, IRitualEnemy
         OnRitualEnemyDied?.Invoke(this);
     }
 
-    // Spawn FX genérico
     private void SpawnFX(GameObject prefab, Vector3 pos, float lifetime)
     {
         if (prefab == null)
-        {
             return;
-        }
 
         GameObject fx = Instantiate(prefab, pos, Quaternion.identity);
 
         Destroy(fx, lifetime);
     }
 
-    // FX hit player
     private void SpawnPlayerHitFX(Transform target)
     {
         if (playerHitFX == null || target == null)
-        {
             return;
-        }
 
         SpawnFX(playerHitFX, target.position + playerHitFXOffset, playerHitFXLifetime);
     }
 
-    // Parar agente
     private void StopAgent()
     {
         if (AgentReady)
-        {
             agent.isStopped = true;
-        }
     }
 
-    // Gizmo rango aterrizaje
+    private void PlaySound(AudioClip clip, float volume)
+    {
+        if (audioSource == null || clip == null)
+            return;
+
+        audioSource.pitch = UnityEngine.Random.Range(minAttackPitch, maxAttackPitch);
+        audioSource.PlayOneShot(clip, volume);
+    }
+
+    private void PlayAttackHitPlayerSound()
+    {
+        PlaySound(attackHitPlayerClip, attackHitPlayerVolume);
+    }
+
     private void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.orange;
-
         Gizmos.DrawWireSphere(transform.position, landingDamageRadius);
     }
 }

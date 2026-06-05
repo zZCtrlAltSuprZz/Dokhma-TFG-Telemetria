@@ -42,6 +42,15 @@ public class WeaponData : ScriptableObject
     public float vfxLifetime = 2f; 
     public bool attachVFXToFirePoint = false;
 
+    [Header("Audio")]
+    public AudioClip[] attackSounds;
+    public float attackVolume = 1f;
+
+    public AudioClip reloadSound;
+    public float reloadVolume = 1f;
+
+    public AudioClip equipSound;
+    public float equipVolume = 1f;
 
     [Header("Animator")]
     public bool usesPistolPose;

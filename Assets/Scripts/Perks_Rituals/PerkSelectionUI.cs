@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using System.Collections;
 using System.Collections.Generic;
 
 public class PerkSelectionUI : MonoBehaviour
@@ -53,12 +54,29 @@ public class PerkSelectionUI : MonoBehaviour
 
         if (panel != null)
             panel.SetActive(true);
-        if (hud != null)          
-            hud.SetActive(false);
         else
             Debug.LogError("Panel no asignado en PerkSelectionUI");
 
+        if (hud != null)
+            hud.SetActive(false);
+
         Time.timeScale = 0f;
+
+        StartCoroutine(SelectFirstOptionNextFrame());
+    }
+
+    private IEnumerator SelectFirstOptionNextFrame()
+    {
+        yield return null;
+
+        if (EventSystem.current == null || optionAButton == null)
+            yield break;
+
+        EventSystem.current.SetSelectedGameObject(null);
+        EventSystem.current.SetSelectedGameObject(optionAButton.gameObject);
+
+        SetHover(optionAButton, currentA, true);
+        SetHover(optionBButton, currentB, false);
     }
 
     private void SetOption(TMP_Text nameText, TMP_Text descriptionText, Button button, PerkData perk)
@@ -72,7 +90,6 @@ public class PerkSelectionUI : MonoBehaviour
         nameText.text = perk.perkName;
         descriptionText.text = perk.description;
 
-        // IMPORTANTE: el botón ES la imagen
         button.image.sprite = perk.iconNormal;
     }
 
@@ -85,34 +102,52 @@ public class PerkSelectionUI : MonoBehaviour
 
         trigger.triggers = new List<EventTrigger.Entry>();
 
-        // HOVER ENTER
-        EventTrigger.Entry enter = new EventTrigger.Entry();
-        enter.eventID = EventTriggerType.PointerEnter;
-        enter.callback.AddListener((data) =>
+        AddEvent(trigger, EventTriggerType.PointerEnter, () =>
         {
-            var perk = getPerk();
-            if (perk != null && perk.iconHover != null)
-            {
-                button.image.sprite = perk.iconHover;
-                Debug.Log("Hover ON: " + perk.perkName);
-            }
+            SetHover(button, getPerk(), true);
         });
 
-        // HOVER EXIT
-        EventTrigger.Entry exit = new EventTrigger.Entry();
-        exit.eventID = EventTriggerType.PointerExit;
-        exit.callback.AddListener((data) =>
+        AddEvent(trigger, EventTriggerType.PointerExit, () =>
         {
-            var perk = getPerk();
-            if (perk != null && perk.iconNormal != null)
-            {
-                button.image.sprite = perk.iconNormal;
-                Debug.Log("Hover OFF: " + perk.perkName);
-            }
+            if (EventSystem.current != null &&
+                EventSystem.current.currentSelectedGameObject == button.gameObject)
+                return;
+
+            SetHover(button, getPerk(), false);
         });
 
-        trigger.triggers.Add(enter);
-        trigger.triggers.Add(exit);
+        AddEvent(trigger, EventTriggerType.Select, () =>
+        {
+            SetHover(button, getPerk(), true);
+        });
+
+        AddEvent(trigger, EventTriggerType.Deselect, () =>
+        {
+            SetHover(button, getPerk(), false);
+        });
+    }
+
+    private void AddEvent(EventTrigger trigger, EventTriggerType type, System.Action action)
+    {
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = type;
+        entry.callback.AddListener((data) => action.Invoke());
+        trigger.triggers.Add(entry);
+    }
+
+    private void SetHover(Button button, PerkData perk, bool active)
+    {
+        if (button == null || perk == null)
+            return;
+
+        if (active && perk.iconHover != null)
+        {
+            button.image.sprite = perk.iconHover;
+        }
+        else if (!active && perk.iconNormal != null)
+        {
+            button.image.sprite = perk.iconNormal;
+        }
     }
 
     public void SelectPerk(PerkData perk)
@@ -131,11 +166,15 @@ public class PerkSelectionUI : MonoBehaviour
         else
             Debug.LogError("PerkHUD no asignado");
 
+        if (EventSystem.current != null)
+            EventSystem.current.SetSelectedGameObject(null);
+
         if (panel != null)
             panel.SetActive(false);
 
         if (hud != null)
             hud.SetActive(true);
+
         Time.timeScale = 1f;
     }
 }

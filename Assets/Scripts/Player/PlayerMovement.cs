@@ -44,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private Animator animator;
     [SerializeField] private string isDashingBool = "isDashing";
 
+    private PlayerAudio playerAudio;
+
     [Header("Debug")]
     [SerializeField] private bool showDebug = true;
 
@@ -82,6 +84,8 @@ public class PlayerMovement : MonoBehaviour
         {
             animator = GetComponentInChildren<Animator>();
         }
+
+        playerAudio = GetComponent<PlayerAudio>();
 
         CurrentStamina = maxStamina;
 
@@ -266,6 +270,9 @@ public class PlayerMovement : MonoBehaviour
     private IEnumerator DashRoutine(Vector3 direction)
     {
         isDashing = true;
+
+        // Sonido del dash justo cuando empieza
+        playerAudio?.PlayDash();
 
         nextDashTime = Time.time + dashCooldown;
         UpdateDashCooldownUI();
@@ -452,5 +459,25 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("Dash perk aplicado.");
         }
+    }
+    public void ForceStopMovement()
+    {
+        IsRunning = false;
+        wasMoving = false;
+        verticalVelocity = 0f;
+
+        if (dashRoutine != null)
+        {
+            StopCoroutine(dashRoutine);
+            dashRoutine = null;
+        }
+
+        isDashing = false;
+
+        if (animator != null)
+            animator.SetBool(isDashingBool, false);
+
+        if (input != null)
+            input.CancelGamepadSprintToggle();
     }
 }

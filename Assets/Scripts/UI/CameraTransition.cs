@@ -94,7 +94,7 @@ public class CameraTransition : MonoBehaviour
         //SceneManager.LoadScene("Blocking");
         canvasGroup.gameObject.SetActive(false);
 
-        SceneManager.LoadScene("Blocking", LoadSceneMode.Single);
+        SceneManager.LoadScene("MainSceneGameplay", LoadSceneMode.Single);
     }
 
     private IEnumerator FadeCanvas(float from, float to)

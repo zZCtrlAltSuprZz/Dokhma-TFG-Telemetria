@@ -43,6 +43,10 @@ public class WeaponChest : MonoBehaviour
     [Header("Debug")]
     [SerializeField] private bool showDebug = true;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip openSound;
+
     private PlayerCombat playerCombat;
     private PlayerInputReader inputReader;
     private Transform player;
@@ -58,6 +62,8 @@ public class WeaponChest : MonoBehaviour
     {
         if (animator == null)
             animator = GetComponent<Animator>();
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
 
         HideAllRewards();
         HideText();
@@ -78,6 +84,11 @@ public class WeaponChest : MonoBehaviour
             inputReader.OnInteractPressed -= HandleInteractPressed;
     }
 
+    private void PlayOpenSound()
+    {
+        if (audioSource != null && openSound != null)
+            audioSource.PlayOneShot(openSound);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (!other.CompareTag("Player"))
@@ -160,6 +171,7 @@ public class WeaponChest : MonoBehaviour
         currentReward = notOwnedWeapons[Random.Range(0, notOwnedWeapons.Count)];
 
         state = ChestState.Opening;
+        PlayOpenSound();
         HideText();
 
         if (animator != null)

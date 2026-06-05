@@ -33,4 +33,11 @@ MonoBehaviour:
   useVFXPrefab: {fileID: 8667303695052273658, guid: 2870c2b8ad422c847b3a89f9da0d9df8, type: 3}
   vfxLifetime: 1
   attachVFXToFirePoint: 0
+  attackSounds:
+  - {fileID: 8300000, guid: f98d2ebdc62f22c4da99eb02d92c14b6, type: 3}
+  attackVolume: 0.3
+  reloadSound: {fileID: 0}
+  reloadVolume: 1
+  equipSound: {fileID: 8300000, guid: 247cb5452f1e2dd428ac164065bfae86, type: 3}
+  equipVolume: 0.3
   usesPistolPose: 0

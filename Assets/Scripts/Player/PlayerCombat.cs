@@ -10,6 +10,7 @@ public class PlayerCombat : MonoBehaviour
     [SerializeField] private int currentWeaponIndex = 0;
     [SerializeField] private int maxOwnedWeapons = 2;
     [SerializeField] private WeaponRecoil weaponRecoil;
+    [SerializeField] private PlayerAudio playerAudio;
 
     [Header("Ammo HUD")]
     [SerializeField] private TMP_Text ammoText;
@@ -90,6 +91,11 @@ public class PlayerCombat : MonoBehaviour
         if (animator == null)
         {
             animator = GetComponent<Animator>();
+        }
+
+        if (playerAudio == null)
+        {
+            playerAudio = GetComponent<PlayerAudio>();
         }
     }
 
@@ -172,9 +178,12 @@ public class PlayerCombat : MonoBehaviour
             animator.SetBool(pistolBool, weapon.usesPistolPose);
         }
 
+        // Sonido al cambiar/equipar arma
+        playerAudio?.PlayEquipSound(weapon);
         OnWeaponChanged?.Invoke(weapon);
         InitAmmo(weapon);
         UpdateAmmoHUD();
+
     }
 
     private void InitAmmo(WeaponData weapon)
@@ -233,6 +242,9 @@ public class PlayerCombat : MonoBehaviour
         isReloading = true;
         reloadingWeapon = weapon;
 
+        // Sonido de recarga, solo cuando la recarga empieza de verdad
+        playerAudio?.PlayReloadSound(weapon);
+
         if (animator == null)
         {
             return;
@@ -290,6 +302,7 @@ public class PlayerCombat : MonoBehaviour
         GameTelemetryEvents.ShotFired(weapon.weaponName);
 
         weaponRecoil?.PlayRecoil();
+        playerAudio?.PlayWeaponSound(weapon);
 
         Transform shootPoint = GetFirePoint(weapon);
 
@@ -318,13 +331,16 @@ public class PlayerCombat : MonoBehaviour
     {
         if (meleeAttack != null)
         {
-            meleeAttack.TryMeleeAttack(weapon);
+            bool attackExecuted = meleeAttack.TryMeleeAttack(weapon);
+
+            // Solo suena si realmente se ha lanzado el ataque
+            if (attackExecuted)
+            {
+                playerAudio?.PlayWeaponSound(weapon);
+                GameTelemetryEvents.MeleeAttackUsed(weapon.weaponName);
+            }
         }
-
-        //Telemetry
-        GameTelemetryEvents.MeleeAttackUsed(weapon.weaponName);
     }
-
     private Transform GetFirePoint(WeaponData weapon)
     {
         if (weaponPoints != null)

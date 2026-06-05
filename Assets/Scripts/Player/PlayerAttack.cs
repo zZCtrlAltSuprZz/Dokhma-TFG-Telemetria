@@ -21,10 +21,12 @@ public class PlayerAttack : MonoBehaviour
         aim = GetComponent<PlayerAim>();
     }
 
-    public void TryMeleeAttack(WeaponData weapon)
+    public bool TryMeleeAttack(WeaponData weapon)
     {
-        if (weapon == null) return;
-        if (Time.time < nextAttackTime) return;
+        if (weapon == null) return false;
+
+        // Si está en cooldown, no se ejecuta el ataque
+        if (Time.time < nextAttackTime) return false;
 
         currentMeleeWeapon = weapon;
         nextAttackTime = Time.time + combat.GetFinalMeleeCooldown(weapon);
@@ -41,6 +43,9 @@ public class PlayerAttack : MonoBehaviour
         }
 
         nextSwingRight = !nextSwingRight;
+
+        // El ataque sí se ha realizado
+        return true;
     }
 
     public void DealMeleeDamage()

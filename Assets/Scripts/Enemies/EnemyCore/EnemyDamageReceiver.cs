@@ -19,7 +19,7 @@ public class EnemyDamageReceiver : MonoBehaviour
     [SerializeField] private float knockbackDistance = 0.6f;
     [SerializeField] private float knockbackTime = 0.12f;
     [SerializeField] private float stunTime = 0.2f;
-    [SerializeField]private float knockbackMultiplier = 1f;
+    [SerializeField] private float knockbackMultiplier = 1f;
     private float knockbackTimeMultiplier = 1f;
 
     [Header("Hit Flash")]
@@ -38,9 +38,18 @@ public class EnemyDamageReceiver : MonoBehaviour
     [SerializeField] private Transform hitFXPoint;
     [SerializeField] private float hitFXLifetime = 2f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip hitClip;
+    [SerializeField] private AudioClip deathClip;
+    [SerializeField] private float hitVolume = 0.8f;
+    [SerializeField] private float deathVolume = 1f;
+
+    [SerializeField] private float minPitch = 0.95f;
+    [SerializeField] private float maxPitch = 1.05f;
+
     [SerializeField] private EnemyType enemyType;
     public EnemyType EnemyType => enemyType;
-
 
     public event Action OnDeath;
     public event Action OnHitStart;
@@ -58,10 +67,11 @@ public class EnemyDamageReceiver : MonoBehaviour
     private Renderer[] renderers;
     private Material[][] originalMaterials;
 
-
-
     private void Awake()
     {
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
 
@@ -83,6 +93,9 @@ public class EnemyDamageReceiver : MonoBehaviour
 
         currentHealth -= damage;
         SpawnHitFX(hitDirection);
+
+        // Sonido de daño del enemigo concreto
+        PlayHitSound();
 
         if (SoulManager.Instance != null)
             SoulManager.Instance.AddSouls(soulsPerHit);
@@ -108,6 +121,27 @@ public class EnemyDamageReceiver : MonoBehaviour
 
             hitRoutine = StartCoroutine(HitReaction(hitDirection));
         }
+    }
+
+    private void PlayHitSound()
+    {
+        if (audioSource == null || hitClip == null)
+            return;
+
+        audioSource.pitch = UnityEngine.Random.Range(minPitch, maxPitch);
+        audioSource.PlayOneShot(hitClip, hitVolume);
+    }
+
+    private void PlayDeathSound()
+    {
+        if (deathClip == null)
+            return;
+
+        AudioSource.PlayClipAtPoint(
+            deathClip,
+            transform.position,
+            deathVolume
+        );
     }
 
     private void SpawnHitFX(Vector3 hitDirection)
@@ -178,7 +212,6 @@ public class EnemyDamageReceiver : MonoBehaviour
     {
         knockbackMultiplier = distanceMultiplier;
         knockbackTimeMultiplier = timeMultiplier;
-
     }
 
     private IEnumerator HitReaction(Vector3 hitDirection)
@@ -201,7 +234,6 @@ public class EnemyDamageReceiver : MonoBehaviour
         Vector3 target = start + away * knockbackDistance * knockbackMultiplier;
 
         float elapsed = 0f;
-
         float finalKnockbackTime = knockbackTime * knockbackTimeMultiplier;
 
         while (elapsed < finalKnockbackTime)
@@ -234,6 +266,9 @@ public class EnemyDamageReceiver : MonoBehaviour
 
         IsDead = true;
 
+        // Sonido de muerte. Uso PlayClipAtPoint para que no se corte al destruir el enemigo.
+        PlayDeathSound();
+
         if (hitRoutine != null)
             StopCoroutine(hitRoutine);
 
@@ -247,8 +282,8 @@ public class EnemyDamageReceiver : MonoBehaviour
 
         OnDeath?.Invoke();
 
-        // Telemetry
         GameTelemetryEvents.EnemyKilled(enemyType);
+
         if (deathFX != null)
         {
             Vector3 spawnPos = deathFXPoint != null ? deathFXPoint.position : transform.position;

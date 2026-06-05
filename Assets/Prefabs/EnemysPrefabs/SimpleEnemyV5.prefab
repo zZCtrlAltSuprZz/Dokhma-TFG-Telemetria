@@ -509,6 +509,8 @@ GameObject:
   - component: {fileID: 5538182205777870512}
   - component: {fileID: 7712783199090466013}
   - component: {fileID: 2850122788360098812}
+  - component: {fileID: 9059934775366945108}
+  - component: {fileID: 6590753610819950869}
   m_Layer: 6
   m_Name: Armature_cacahuete
   m_TagString: Enemy
@@ -633,6 +635,11 @@ MonoBehaviour:
   playerHitFX: {fileID: 5880797563127281583, guid: 265d3a5ba69981a4698ceabcedf368b0, type: 3}
   playerHitFXLifetime: 2
   playerHitFXOffset: {x: 0, y: 1, z: 0}
+  audioSource: {fileID: 9059934775366945108}
+  attackHitPlayerClip: {fileID: 8300000, guid: af302dfa9e4a9824984a556be00cd85e, type: 3}
+  attackHitPlayerVolume: 0.1
+  minAttackPitch: 0.95
+  maxAttackPitch: 1.05
 --- !u!195 &5538182205777870512
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -685,6 +692,13 @@ MonoBehaviour:
   hitFX: {fileID: 5880797563127281583, guid: 6ab4f17394d92cd45896bbf27d19c29a, type: 3}
   hitFXPoint: {fileID: 8185030669747430253}
   hitFXLifetime: 2
+  audioSource: {fileID: 9059934775366945108}
+  hitClip: {fileID: 8300000, guid: 32e2b7d195b9a724287d5557273fa884, type: 3}
+  deathClip: {fileID: 8300000, guid: be07b25323fd29d46ba72466402b555e, type: 3}
+  hitVolume: 0.03
+  deathVolume: 1.5
+  minPitch: 0.95
+  maxPitch: 1.05
   enemyType: 0
 --- !u!114 &2850122788360098812
 MonoBehaviour:
@@ -700,6 +714,128 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   turnSpeedDegrees: 720
   minTurnSqr: 0.0004
+--- !u!82 &9059934775366945108
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255034342386178816}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 0
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 2
+  MaxDistance: 20
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &6590753610819950869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2255034342386178816}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1f36464ee7b85e40993cbbb5739c381, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  footstepClips:
+  - {fileID: 8300000, guid: 0310b0da8565dc34486317218e9f262e, type: 3}
+  - {fileID: 8300000, guid: 3c605660b43289f4ea07113fb4a2a10a, type: 3}
+  - {fileID: 8300000, guid: 563f562a99a166e4caad3f855848ac22, type: 3}
+  - {fileID: 8300000, guid: bc147fd095e58e04fbb772bce62f499a, type: 3}
+  - {fileID: 8300000, guid: 7b607a1f80d724d4ca6b7a3e2e0117ee, type: 3}
+  volume: 0.1
+  minPitch: 0.95
+  maxPitch: 1.05
+  stepInterval: 0.45
+  minMoveSpeed: 0.1
+  maxHearDistance: 20
+  playChance: 0.45
 --- !u!1 &2611172264914052716
 GameObject:
   m_ObjectHideFlags: 0

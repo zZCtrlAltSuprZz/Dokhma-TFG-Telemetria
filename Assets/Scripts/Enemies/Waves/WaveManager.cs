@@ -48,6 +48,10 @@ public class WaveManager : MonoBehaviour
     [Header("Between Waves")]
     [SerializeField] private float timeBetweenWaves = 3f;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip roundCompleteSound;
+
     private EnemySpawnPoint[] allSpawnPoints;
     private GameZone currentZone = GameZone.ZoneLobby;
 
@@ -72,10 +76,14 @@ public class WaveManager : MonoBehaviour
                 player = playerObj.transform;
         }
 
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
+
         allSpawnPoints = FindObjectsByType<EnemySpawnPoint>(FindObjectsSortMode.None);
 
         currentWave = startingWave - 1;
         StartNextWave();
+        MusicManager.Instance.PlayGameplayMusic();
     }
 
     private void Update()
@@ -87,11 +95,12 @@ public class WaveManager : MonoBehaviour
 
         if (allSpawned && allDead && !spawningWave)
         {
+            PlayRoundCompleteSound();
+
             // Telemetry
             GameTelemetryEvents.WaveCompleted(currentWave);
             waveInProgress = false;
             StartCoroutine(BeginNextWaveAfterDelay());
-
         }
     }
 
@@ -104,6 +113,12 @@ public class WaveManager : MonoBehaviour
 
         yield return new WaitForSeconds(finalRestTime);
         StartNextWave();
+    }
+
+    private void PlayRoundCompleteSound()
+    {
+        if (audioSource != null && roundCompleteSound != null)
+            audioSource.PlayOneShot(roundCompleteSound);
     }
 
     private void StartNextWave()

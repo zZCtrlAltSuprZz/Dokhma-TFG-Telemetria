@@ -41,6 +41,13 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
     [SerializeField] private float playerHitFXLifetime = 2f;
     [SerializeField] private Vector3 playerHitFXOffset = Vector3.up;
 
+    [Header("Attack Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip attackHitPlayerClip;
+    [SerializeField] private float attackHitPlayerVolume = 1f;
+    [SerializeField] private float minAttackPitch = 0.95f;
+    [SerializeField] private float maxAttackPitch = 1.05f;
+
     private WaveManager waveManager;
     private bool deathNotified;
 
@@ -76,6 +83,8 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
 
         if (animator == null)
             animator = GetComponentInChildren<Animator>();
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
 
         agent.updateRotation = false;
         agent.updateUpAxis = true;
@@ -273,6 +282,7 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
             if (health != null)
             {
                 health.TakeDamage(attackDamage);
+                PlayAttackHitPlayerSound();
                 SpawnPlayerHitFX(health.transform);
             }
         }
@@ -355,5 +365,14 @@ public class SimpleEnemy : MonoBehaviour, IRitualEnemy
     {
         if (agent.enabled && agent.isOnNavMesh)
             agent.isStopped = true;
+    }
+
+    private void PlayAttackHitPlayerSound()
+    {
+        if (audioSource == null || attackHitPlayerClip == null)
+            return;
+
+        audioSource.pitch = UnityEngine.Random.Range(minAttackPitch, maxAttackPitch);
+        audioSource.PlayOneShot(attackHitPlayerClip, attackHitPlayerVolume);
     }
 }

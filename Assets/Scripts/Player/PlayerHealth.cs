@@ -18,6 +18,8 @@ public class PlayerHealth : MonoBehaviour
 
     [Header("Death")]
     [SerializeField] private GameObject deathText;
+    [SerializeField] private Animator animator;
+    [SerializeField] private string deathTrigger = "Death";
 
     [Header("Juggernout")]
     [SerializeField] private float juggerMultiplier = 2f;
@@ -32,6 +34,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private bool showDebug = true;
 
     private PlayerDamageFeedback damageFeedback;
+    private PlayerAudio playerAudio;
+    private PlayerInputReader inputReader;
+    private PlayerMovement playerMovement;
+
     private Coroutine healRoutine;
     private Coroutine quickReviveRoutine;
 
@@ -47,8 +53,15 @@ public class PlayerHealth : MonoBehaviour
         currentLives = maxLives;
 
         damageFeedback = GetComponent<PlayerDamageFeedback>();
+        playerAudio = GetComponent<PlayerAudio>();
+        inputReader = GetComponent<PlayerInputReader>();
+        playerMovement = GetComponent<PlayerMovement>();
+
         rb = GetComponent<Rigidbody>();
         characterController = GetComponent<CharacterController>();
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
 
         if (damageFeedback != null)
             damageFeedback.UpdateBlood(currentLives, maxLives);
@@ -62,7 +75,8 @@ public class PlayerHealth : MonoBehaviour
         currentLives -= dmg;
         currentLives = Mathf.Clamp(currentLives, 0, maxLives);
 
-        // Telemetry
+        
+
         GameTelemetryEvents.PlayerDamaged(dmg, currentLives);
 
         if (damageFeedback != null)
@@ -89,7 +103,6 @@ public class PlayerHealth : MonoBehaviour
         if (damageFeedback != null)
             damageFeedback.ClearBloodSmooth();
 
-        // Telemetry
         GameTelemetryEvents.PlayerHealed(maxLives, currentLives);
 
         if (showDebug)
@@ -109,6 +122,11 @@ public class PlayerHealth : MonoBehaviour
 
     private IEnumerator QuickReviveRoutine()
     {
+        isDeadOrReviving = true;
+
+        // Corta input, dash y movimiento residual antes de desactivar scripts
+        StopPlayerCompletely();
+
         SetPlayerControlEnabled(false);
 
         hasQuickRevive = false;
@@ -116,16 +134,17 @@ public class PlayerHealth : MonoBehaviour
         if (perkHUD != null)
             perkHUD.DeactivatePerkIconByType(PerkType.QuickRev);
 
-        isDeadOrReviving = true;
-
         if (healRoutine != null)
             StopCoroutine(healRoutine);
 
         if (damageFeedback != null)
             damageFeedback.SetFullBlood();
 
+        // Solo reproduce animación de muerte
+        PlayDeathAnimation();
+
         if (showDebug)
-            Debug.Log("Quick Revive activado. Reanimando en 5 segundos...");
+            Debug.Log("Quick Revive activado. Reanimando en " + quickReviveDelay + " segundos...");
 
         yield return new WaitForSeconds(quickReviveDelay);
 
@@ -145,14 +164,18 @@ public class PlayerHealth : MonoBehaviour
         if (showDebug)
             Debug.Log("Quick Revive usado. Revives con " + currentLives + " vidas.");
 
-        // Telemetry
         GameTelemetryEvents.PlayerRevived();
     }
 
     private void Die()
     {
         isDeadOrReviving = true;
+
+        StopPlayerCompletely();
         SetPlayerControlEnabled(false);
+
+        if (playerAudio != null)
+            playerAudio.PlayDeath();
 
         if (damageFeedback != null)
             damageFeedback.SetFullBlood();
@@ -160,13 +183,42 @@ public class PlayerHealth : MonoBehaviour
         if (deathText != null)
             deathText.SetActive(true);
 
-        // Telemetry
+        // Solo reproduce animación de muerte
+        PlayDeathAnimation();
+
         GameTelemetryEvents.PlayerDied();
+
 
         Time.timeScale = 0f;
 
         if (showDebug)
             Debug.Log("Player died");
+    }
+
+    private void StopPlayerCompletely()
+    {
+        if (inputReader != null)
+            inputReader.ClearInput();
+
+        if (playerMovement != null)
+            playerMovement.ForceStopMovement();
+
+        if (rb != null)
+        {
+            rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
+        }
+
+        if (characterController != null)
+            characterController.Move(Vector3.zero);
+    }
+
+    private void PlayDeathAnimation()
+    {
+        if (animator == null) return;
+
+        animator.ResetTrigger(deathTrigger);
+        animator.SetTrigger(deathTrigger);
     }
 
     private void SetPlayerControlEnabled(bool enabled)
@@ -175,19 +227,6 @@ public class PlayerHealth : MonoBehaviour
         {
             if (disableWhileDeadOrReviving[i] != null)
                 disableWhileDeadOrReviving[i].enabled = enabled;
-        }
-
-        if (!enabled)
-        {
-            if (rb != null)
-            {
-                rb.linearVelocity = Vector3.zero;
-
-                rb.angularVelocity = Vector3.zero;
-            }
-
-            if (characterController != null)
-                characterController.Move(Vector3.zero);
         }
     }
 

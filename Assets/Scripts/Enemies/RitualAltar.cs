@@ -19,6 +19,10 @@ public class RitualAltar : MonoBehaviour
     [SerializeField] private float resetTimeWithoutKill = 60f;
     [SerializeField] private bool showDebug = true;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip ritualSound;
+
     [Header("Cost")]
     [SerializeField] private int ritualCost = 500;
 
@@ -65,6 +69,9 @@ public class RitualAltar : MonoBehaviour
 
         if (altarAnimator == null)
             altarAnimator = GetComponentInChildren<Animator>();
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
     }
 
     private void Start()
@@ -115,10 +122,7 @@ public class RitualAltar : MonoBehaviour
 
         if (enemiesInside.Add(enemy))
         {
-            enemy.OnRitualEnemyDied += HandleEnemyDied;
-
-            if (showDebug)
-                Debug.Log("Enemy entered ritual area: " + enemy.Transform.name);
+            enemy.OnRitualEnemyDied += HandleEnemyDied;    
         }
     }
 
@@ -141,9 +145,6 @@ public class RitualAltar : MonoBehaviour
         if (enemy == null) return;
 
         RemoveEnemy(enemy);
-
-        if (showDebug)
-            Debug.Log("Enemy left ritual area: " + enemy.Transform.name);
     }
 
     private void Interact()
@@ -244,6 +245,8 @@ public class RitualAltar : MonoBehaviour
     {
         currentKills = 0;
         timeSinceLastKill = 0f;
+
+        PlayRitualSound();
         UpdateAnimator();
     }
 
@@ -252,6 +255,8 @@ public class RitualAltar : MonoBehaviour
         timeSinceLastKill = 0f;
 
         UpdateAnimator();
+        PlayRitualSound();
+
 
         SpawnCompletionFX();
 
@@ -272,6 +277,11 @@ public class RitualAltar : MonoBehaviour
         altarAnimator.SetBool("isActive", isActive);
     }
 
+    private void PlayRitualSound()
+    {
+        if (audioSource != null && ritualSound != null)
+            audioSource.PlayOneShot(ritualSound);
+    }
     private void UpdateInteractUI()
     {
         bool shouldShow =

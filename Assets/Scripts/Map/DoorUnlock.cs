@@ -20,6 +20,10 @@ public class DoorUnlock : MonoBehaviour
     [SerializeField] private TMP_Text interactionText;
     [SerializeField] private GameObject interactionPanel;
 
+    [Header("Audio")]
+    [SerializeField] private AudioSource audioSource;
+    [SerializeField] private AudioClip openSound;
+
     [SerializeField] private NavMeshObstacle navMeshObstacle;
 
     private bool playerInside;
@@ -31,6 +35,9 @@ public class DoorUnlock : MonoBehaviour
     {
         if (doorVisual == null)
             doorVisual = transform;
+
+        if (audioSource == null)
+            audioSource = GetComponent<AudioSource>();
 
         if (navMeshObstacle == null)
             navMeshObstacle = GetComponent<NavMeshObstacle>();
@@ -64,6 +71,12 @@ public class DoorUnlock : MonoBehaviour
         }
     }
 
+    private void PlayOpenSound()
+    {
+        if (audioSource != null && openSound != null)
+            audioSource.PlayOneShot(openSound);
+    }
+
     private void TryOpenDoor()
     {
         Debug.Log("Intentando abrir puerta");
@@ -81,7 +94,7 @@ public class DoorUnlock : MonoBehaviour
 
             return;
         }
-
+        PlayOpenSound();
         StartCoroutine(OpenDoorRoutine());
     }
 

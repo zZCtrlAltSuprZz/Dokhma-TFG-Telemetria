@@ -1,18 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
-using TMPro;
 
-public class MenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+public class MenuButtons : MonoBehaviour
 {
     [Header("Botones")]
     [SerializeField] private Button[] buttons;
 
-    [Header("Icono hover")]
+    [Header("Icono hover / selección")]
     [SerializeField] private RectTransform hoverIcon;
     [SerializeField] private float iconOffsetX = -60f;
-
-    private Button currentHovered;
 
     private void Start()
     {
@@ -20,39 +17,44 @@ public class MenuButtons : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
 
         foreach (Button btn in buttons)
         {
-            EventTrigger trigger = btn.gameObject.AddComponent<EventTrigger>();
+            EventTrigger trigger = btn.gameObject.GetComponent<EventTrigger>();
 
-            EventTrigger.Entry enterEntry = new EventTrigger.Entry();
-            enterEntry.eventID = EventTriggerType.PointerEnter;
-            enterEntry.callback.AddListener((data) => OnButtonHover(btn));
-            trigger.triggers.Add(enterEntry);
+            if (trigger == null)
+                trigger = btn.gameObject.AddComponent<EventTrigger>();
 
-            EventTrigger.Entry exitEntry = new EventTrigger.Entry();
-            exitEntry.eventID = EventTriggerType.PointerExit;
-            exitEntry.callback.AddListener((data) => OnButtonExit());
-            trigger.triggers.Add(exitEntry);
+            AddEvent(trigger, EventTriggerType.PointerEnter, () => ShowIconOnButton(btn));
+            AddEvent(trigger, EventTriggerType.PointerExit, HideIcon);
+
+            AddEvent(trigger, EventTriggerType.Select, () => ShowIconOnButton(btn));
+            AddEvent(trigger, EventTriggerType.Deselect, HideIcon);
         }
     }
 
-    private void OnButtonHover(Button btn)
+    private void AddEvent(EventTrigger trigger, EventTriggerType type, System.Action action)
     {
+        EventTrigger.Entry entry = new EventTrigger.Entry();
+        entry.eventID = type;
+        entry.callback.AddListener((data) => action.Invoke());
+        trigger.triggers.Add(entry);
+    }
+
+    public void ShowIconOnButton(Button btn)
+    {
+        if (btn == null || hoverIcon == null) return;
+
         hoverIcon.gameObject.SetActive(true);
 
         RectTransform btnRect = btn.GetComponent<RectTransform>();
+
         Vector2 iconPos = btnRect.anchoredPosition;
         iconPos.x += iconOffsetX;
+
         hoverIcon.anchoredPosition = iconPos;
     }
 
-    private void OnButtonExit()
-    {
-        hoverIcon.gameObject.SetActive(false);
-    }
     public void HideIcon()
     {
-        hoverIcon.gameObject.SetActive(false);
+        if (hoverIcon != null)
+            hoverIcon.gameObject.SetActive(false);
     }
-
-    public void OnPointerEnter(PointerEventData eventData) { }
-    public void OnPointerExit(PointerEventData eventData) { }
 }

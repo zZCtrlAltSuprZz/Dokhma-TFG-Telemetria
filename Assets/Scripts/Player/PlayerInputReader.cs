@@ -146,6 +146,14 @@ public class PlayerInputReader : MonoBehaviour
         DisableActions();
     }
 
+    public void ClearInput()
+    {
+        MovementInput = Vector2.zero;
+        AimStickInput = Vector2.zero;
+        MousePosition = Vector2.zero;
+        gamepadSprintToggle = false;
+    }
+
     private Vector2 ApplyStickDeadzone(Vector2 input, float deadzone)
     {
         if (input.magnitude < deadzone) return Vector2.zero;
