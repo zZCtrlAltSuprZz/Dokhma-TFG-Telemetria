@@ -7488,7 +7488,7 @@ Transform:
   m_GameObject: {fileID: 771594122}
   serializedVersion: 2
   m_LocalRotation: {x: 0.511293, y: 0, z: 0, w: 0.85940653}
-  m_LocalPosition: {x: 86.857765, y: 19.340988, z: 111.059105}
+  m_LocalPosition: {x: 27.387762, y: 19.34099, z: 57.61911}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -8938,7 +8938,7 @@ Transform:
   m_GameObject: {fileID: 963194225}
   serializedVersion: 2
   m_LocalRotation: {x: 0.511293, y: 0, z: 0, w: 0.85940653}
-  m_LocalPosition: {x: 86.857765, y: 19.340988, z: 111.059105}
+  m_LocalPosition: {x: 27.387762, y: 19.34099, z: 57.61911}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -10661,7 +10661,7 @@ MonoBehaviour:
   player: {fileID: 8899724445724029880}
   waveText: {fileID: 1706811564}
   remainingEnemiesText: {fileID: 115574528}
-  startingWave: 6
+  startingWave: 1
   waves:
   - waveName: Wave 1
     enemies:
@@ -12588,7 +12588,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soulsText: {fileID: 1711236667}
-  currentSouls: 20000
+  currentSouls: 0
   scoreAnimator: {fileID: 1711236670}
   ingameCanvas: {fileID: 1714256843}
 --- !u!4 &1273453277
@@ -13673,7 +13673,7 @@ Transform:
   m_GameObject: {fileID: 1403857461}
   serializedVersion: 2
   m_LocalRotation: {x: 0.511293, y: 0, z: 0, w: 0.85940653}
-  m_LocalPosition: {x: 86.857765, y: 19.340988, z: 111.059105}
+  m_LocalPosition: {x: 27.387762, y: 19.34099, z: 57.61911}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -21557,7 +21557,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingWeapons:
   - {fileID: 11400000, guid: 2b895fbc03146194fa85b8d719f61ecb, type: 2}
-  - {fileID: 11400000, guid: e4c910914475c65458d07ed02d8ae312, type: 2}
   ownedWeapons: []
   currentWeaponIndex: 0
   maxOwnedWeapons: 2
@@ -23426,7 +23425,7 @@ Transform:
   m_GameObject: {fileID: 3889749763703217876}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.99897337, z: -0, w: 0.045301206}
-  m_LocalPosition: {x: 86.9, y: 1.872, z: 120.8}
+  m_LocalPosition: {x: 27.43, y: 1.872, z: 67.36}
   m_LocalScale: {x: 1.81, y: 1.81, z: 1.81}
   m_ConstrainProportionsScale: 1
   m_Children:
