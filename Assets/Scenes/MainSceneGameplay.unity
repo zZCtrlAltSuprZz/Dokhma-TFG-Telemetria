@@ -10679,7 +10679,7 @@ MonoBehaviour:
       enemyPrefab: {fileID: 7553377709098772736, guid: 9f3eccac65274154cbf4be638c865249, type: 3}
       amount: 16
     maxAliveEnemies: 8
-    spawnInterval: 2.6
+    spawnInterval: 2
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 3
@@ -10689,17 +10689,20 @@ MonoBehaviour:
       enemyPrefab: {fileID: 5537767893191302026, guid: 8416d9b504dbfb24195b1a0b8b4914dc, type: 3}
       amount: 6
     maxAliveEnemies: 2
-    spawnInterval: 2
+    spawnInterval: 5
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
-    rangedSpawnRadiusAroundPlayer: 3
+    rangedSpawnRadiusAroundPlayer: 5
   - waveName: Wave 4
     enemies:
     - enemyName: 
       enemyPrefab: {fileID: 7553377709098772736, guid: 1f440c3b59e307f4693319043a081e78, type: 3}
       amount: 25
+    - enemyName: 
+      enemyPrefab: {fileID: 5537767893191302026, guid: 53b2fb1c1e8816d4ba392f35967287ff, type: 3}
+      amount: 2
     maxAliveEnemies: 15
-    spawnInterval: 2.2
+    spawnInterval: 1.8
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 3
@@ -10712,7 +10715,7 @@ MonoBehaviour:
       enemyPrefab: {fileID: 7553377709098772736, guid: e6ce2dea4defe7f4f9cb1a13aad00549, type: 3}
       amount: 0
     maxAliveEnemies: 21
-    spawnInterval: 2.2
+    spawnInterval: 1.7
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 2.6
@@ -10725,10 +10728,23 @@ MonoBehaviour:
       enemyPrefab: {fileID: 5537767893191302026, guid: 85e0702283806644587be100878ac7f7, type: 3}
       amount: 3
     maxAliveEnemies: 28
-    spawnInterval: 2
+    spawnInterval: 1.5
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 2.5
+  - waveName: Wave 7
+    enemies:
+    - enemyName: 
+      enemyPrefab: {fileID: 7553377709098772736, guid: 9c3ca4aebb1f0b641a229a1465e8c1aa, type: 3}
+      amount: 40
+    - enemyName: 
+      enemyPrefab: {fileID: 5537767893191302026, guid: 85e0702283806644587be100878ac7f7, type: 3}
+      amount: 3
+    maxAliveEnemies: 56
+    spawnInterval: 1.4
+    maxSpawnDistanceToPlayer: 300
+    minSpawnDistanceToPlayer: 0
+    rangedSpawnRadiusAroundPlayer: 0.8
   - waveName: Wave 8
     enemies:
     - enemyName: 
@@ -10738,7 +10754,7 @@ MonoBehaviour:
       enemyPrefab: {fileID: 5537767893191302026, guid: ff053e8bb538dc84b8a4548a570b7860, type: 3}
       amount: 3
     maxAliveEnemies: 40
-    spawnInterval: 1.8
+    spawnInterval: 1.4
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 2.1
@@ -10746,12 +10762,12 @@ MonoBehaviour:
     enemies:
     - enemyName: 
       enemyPrefab: {fileID: 7553377709098772736, guid: c340cf2ca4791604994552d3ac5306f2, type: 3}
-      amount: 53
+      amount: 58
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 7d72c0020d2173b4baa92bb10d6f210e, type: 3}
-      amount: 7
+      amount: 5
     maxAliveEnemies: 48
-    spawnInterval: 1.8
+    spawnInterval: 1.4
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 2
@@ -10759,12 +10775,12 @@ MonoBehaviour:
     enemies:
     - enemyName: 
       enemyPrefab: {fileID: 7553377709098772736, guid: 6a64d8eba2c1c69438adc0efdc7349b5, type: 3}
-      amount: 59
+      amount: 74
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 7d72c0020d2173b4baa92bb10d6f210e, type: 3}
-      amount: 8
+      amount: 4
     maxAliveEnemies: 53
-    spawnInterval: 1.6
+    spawnInterval: 1
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 1.9
@@ -10772,12 +10788,12 @@ MonoBehaviour:
     enemies:
     - enemyName: 
       enemyPrefab: {fileID: 7553377709098772736, guid: 4820774a2929bfd438a4225de4c6a6c9, type: 3}
-      amount: 60
+      amount: 80
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 3cd70d533d161bd429714a64f4e34d98, type: 3}
-      amount: 9
+      amount: 4
     maxAliveEnemies: 56
-    spawnInterval: 1.1
+    spawnInterval: 0.8
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 1.2
@@ -10785,12 +10801,12 @@ MonoBehaviour:
     enemies:
     - enemyName: 
       enemyPrefab: {fileID: 7553377709098772736, guid: d14294c8e99fbfb42958b89d0de1f7cf, type: 3}
-      amount: 60
+      amount: 90
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 4c275d79a12ba4e478244300410e9439, type: 3}
-      amount: 9
+      amount: 5
     maxAliveEnemies: 56
-    spawnInterval: 1.1
+    spawnInterval: 0.7
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 1.2
@@ -10801,9 +10817,9 @@ MonoBehaviour:
       amount: 60
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 4c275d79a12ba4e478244300410e9439, type: 3}
-      amount: 9
+      amount: 4
     maxAliveEnemies: 56
-    spawnInterval: 0.8
+    spawnInterval: 0.5
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 0.9
@@ -10814,9 +10830,9 @@ MonoBehaviour:
       amount: 60
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 4c275d79a12ba4e478244300410e9439, type: 3}
-      amount: 9
+      amount: 4
     maxAliveEnemies: 56
-    spawnInterval: 0.6
+    spawnInterval: 0.4
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
     rangedSpawnRadiusAroundPlayer: 0.8
@@ -22761,7 +22777,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8836174419521666389, guid: 52aff5bbf3bf9f24aa2525030b18c83d, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
