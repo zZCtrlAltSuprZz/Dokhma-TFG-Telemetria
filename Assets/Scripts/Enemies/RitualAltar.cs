@@ -312,10 +312,10 @@ public class RitualAltar : MonoBehaviour
                 {
                     interactText.text = startMessage + "(" + ritualCost + ")";
                 }
-                /*else
+                else
                 {
-                    interactText.text = notEnoughSoulsMessage + " - Need " + ritualCost;
-                }*/
+                    interactText.text = notEnoughSoulsMessage + "(" + ritualCost + ")";
+                }
                 break;
 
             case RitualState.Completed:

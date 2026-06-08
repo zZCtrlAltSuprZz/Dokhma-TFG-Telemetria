@@ -36,7 +36,7 @@ MonoBehaviour:
   attachVFXToFirePoint: 1
   attackSounds:
   - {fileID: 8300000, guid: ea45ece38198d974d8516086fd4d2abf, type: 3}
-  attackVolume: 0.03
+  attackVolume: 0.05
   reloadSound: {fileID: 8300000, guid: 01dc035c0ec676e44835893b4f7e0c37, type: 3}
   reloadVolume: 0.05
   equipSound: {fileID: 8300000, guid: a541198e0e7c942499f419bc9357a3fe, type: 3}

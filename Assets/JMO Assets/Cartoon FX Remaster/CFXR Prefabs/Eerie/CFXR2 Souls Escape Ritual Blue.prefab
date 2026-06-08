@@ -42,7 +42,7 @@ Light:
   m_Enabled: 1
   serializedVersion: 11
   m_Type: 2
-  m_Color: {r: 0.74509805, g: 0.20784314, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.29752398, b: 1, a: 1}
   m_Intensity: 0
   m_Range: 8
   m_SpotAngle: 30
@@ -110,7 +110,7 @@ GameObject:
   - component: {fileID: 5515400301767673886}
   - component: {fileID: 114114994653804418}
   m_Layer: 0
-  m_Name: CFXR2 Souls Escape
+  m_Name: CFXR2 Souls Escape Ritual Blue
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -292,9 +292,9 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 0.37254906, g: 1, b: 0.5272947, a: 0}
-        key2: {r: 0.23137254, g: 1, b: 0.25789687, a: 0.019607844}
-        key3: {r: 0, g: 1, b: 0.054832935, a: 0}
+        key1: {r: 0, g: 0.2390244, b: 1, a: 0}
+        key2: {r: 0.027450982, g: 0.33333334, b: 0.909804, a: 0.019607844}
+        key3: {r: 0.023529414, g: 0.37647063, b: 0.854902, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -322,9 +322,9 @@ ParticleSystem:
       minGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 0.46218374, g: 1, b: 0.37254906, a: 0}
-        key2: {r: 0.30830044, g: 1, b: 0.23137254, a: 0.019607844}
-        key3: {r: 0.19127488, g: 1, b: 0, a: 0}
+        key1: {r: 0, g: 0.2390244, b: 1, a: 0}
+        key2: {r: 0.027450982, g: 0.33333334, b: 0.909804, a: 0.019607844}
+        key3: {r: 0.023529414, g: 0.37647063, b: 0.854902, a: 0}
         key4: {r: 1, g: 0.05450766, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -1293,9 +1293,9 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.54375976, b: 0.37254906, a: 0}
-        key2: {r: 1, g: 0.23137254, b: 0.23846377, a: 0.38431373}
-        key3: {r: 1, g: 0.05450766, b: 0, a: 0}
+        key1: {r: 0, g: 0.2390244, b: 1, a: 0}
+        key2: {r: 0.027450982, g: 0.33333334, b: 0.909804, a: 0.38431373}
+        key3: {r: 0.023529414, g: 0.37647063, b: 0.854902, a: 0}
         key4: {r: 0.74509805, g: 0.20784314, b: 1, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
@@ -5112,17 +5112,17 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.54375976, b: 0.37254906, a: 0}
-        key2: {r: 1, g: 0.23137254, b: 0.23846377, a: 0.38431373}
-        key3: {r: 0, g: 0, b: 0, a: 0}
+        key1: {r: 0, g: 0.2390244, b: 1, a: 0}
+        key2: {r: 0.027450982, g: 0.33333334, b: 0.909804, a: 0.38431373}
+        key3: {r: 0.023529414, g: 0.37647063, b: 0.854902, a: 0}
         key4: {r: 0, g: 0, b: 0, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
         key7: {r: 0, g: 0, b: 0, a: 0}
         ctime0: 3277
         ctime1: 13107
-        ctime2: 29684
-        ctime3: 39321
+        ctime2: 26214
+        ctime3: 45875
         ctime4: 49922
         ctime5: 0
         ctime6: 0
@@ -5137,7 +5137,7 @@ ParticleSystem:
         atime7: 0
         m_Mode: 0
         m_ColorSpace: 0
-        m_NumColorKeys: 5
+        m_NumColorKeys: 4
         m_NumAlphaKeys: 2
       minGradient:
         serializedVersion: 2
@@ -9813,9 +9813,9 @@ ParticleSystem:
       maxGradient:
         serializedVersion: 2
         key0: {r: 1, g: 1, b: 1, a: 1}
-        key1: {r: 1, g: 0.54375976, b: 0.37254906, a: 0}
-        key2: {r: 1, g: 0.23137254, b: 0.23846377, a: 0}
-        key3: {r: 1, g: 0.05450766, b: 0, a: 0}
+        key1: {r: 0, g: 0.2390244, b: 1, a: 0}
+        key2: {r: 0.027450982, g: 0.33333334, b: 0.909804, a: 0}
+        key3: {r: 0.023529414, g: 0.37647063, b: 0.854902, a: 0}
         key4: {r: 0.74509805, g: 0.20784314, b: 1, a: 0}
         key5: {r: 0, g: 0, b: 0, a: 0}
         key6: {r: 0, g: 0, b: 0, a: 0}
