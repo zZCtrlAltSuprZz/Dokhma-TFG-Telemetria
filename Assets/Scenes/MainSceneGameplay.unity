@@ -4312,13 +4312,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 1141869088}
+        m_TargetAssemblyTypeName: PausePanel, Assembly-CSharp
+        m_MethodName: ExitGame
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -10687,7 +10687,6 @@ GameObject:
   - component: {fileID: 1273453277}
   - component: {fileID: 1273453276}
   - component: {fileID: 1273453278}
-  - component: {fileID: 1273453280}
   - component: {fileID: 1273453279}
   m_Layer: 0
   m_Name: GameManager
@@ -10841,23 +10840,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1273453280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1273453275}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0135b930cbf06c24eaf77c9fa129646d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicSource: {fileID: 1273453279}
-  mainMenuMusic: {fileID: 8300000, guid: a9e29ead55601484b88813a097a5b4bc, type: 3}
-  gameplayMusic: {fileID: 8300000, guid: 361aac7250bf3694da2c33cc6ed8c9ec, type: 3}
-  deathMusic: {fileID: 8300000, guid: d497cd3b3c5bfae409f4a9cfd85c78bf, type: 3}
-  volume: 0.3
 --- !u!1 &1287243972 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 5333419961551935658, guid: 69dfe286d2ce9c24c952390305ab9c2e, type: 3}
@@ -14561,6 +14543,55 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1713636734
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1713636736}
+  - component: {fileID: 1713636735}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1713636735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713636734}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0135b930cbf06c24eaf77c9fa129646d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSource: {fileID: 1273453279}
+  mainMenuMusic: {fileID: 8300000, guid: a9e29ead55601484b88813a097a5b4bc, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: 361aac7250bf3694da2c33cc6ed8c9ec, type: 3}
+  deathMusic: {fileID: 8300000, guid: d497cd3b3c5bfae409f4a9cfd85c78bf, type: 3}
+  volume: 0.3
+--- !u!4 &1713636736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1713636734}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1363.5934, y: 622.0687, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1713800164 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1929929873733118251, guid: 0c3a7b737d223d0459b7c72b66284500, type: 3}
@@ -21172,3 +21203,4 @@ SceneRoots:
   - {fileID: 1027621066}
   - {fileID: 1141869089}
   - {fileID: 374749997}
+  - {fileID: 1713636736}

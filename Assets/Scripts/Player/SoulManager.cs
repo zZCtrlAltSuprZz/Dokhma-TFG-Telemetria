@@ -18,8 +18,12 @@ public class SoulManager : MonoBehaviour
 
     private void Awake()
     {
+        Debug.Log("SOULMANAGER AWAKE EN: " + gameObject.name);
+
+
         if (Instance != null && Instance != this)
         {
+            Debug.LogWarning("SoulManager duplicado destruido: " + gameObject.name);
             Destroy(gameObject);
             return;
         }

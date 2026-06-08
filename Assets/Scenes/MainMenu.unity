@@ -4224,7 +4224,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2000716379}
   - component: {fileID: 2000716378}
-  - component: {fileID: 2000716380}
   - component: {fileID: 2000716381}
   m_Layer: 0
   m_Name: MenuController
@@ -4261,23 +4260,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2000716380
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2000716377}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0135b930cbf06c24eaf77c9fa129646d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicSource: {fileID: 0}
-  mainMenuMusic: {fileID: 8300000, guid: a9e29ead55601484b88813a097a5b4bc, type: 3}
-  gameplayMusic: {fileID: 8300000, guid: 361aac7250bf3694da2c33cc6ed8c9ec, type: 3}
-  deathMusic: {fileID: 8300000, guid: d497cd3b3c5bfae409f4a9cfd85c78bf, type: 3}
-  volume: 0.5
 --- !u!82 &2000716381
 AudioSource:
   m_ObjectHideFlags: 0
@@ -4547,6 +4529,55 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec3b1832db095be40bd5e19a60f13fbe, type: 3}
+--- !u!1 &2082631760
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2082631762}
+  - component: {fileID: 2082631761}
+  m_Layer: 0
+  m_Name: MusicManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2082631761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082631760}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0135b930cbf06c24eaf77c9fa129646d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicSource: {fileID: 2000716381}
+  mainMenuMusic: {fileID: 8300000, guid: a9e29ead55601484b88813a097a5b4bc, type: 3}
+  gameplayMusic: {fileID: 8300000, guid: 361aac7250bf3694da2c33cc6ed8c9ec, type: 3}
+  deathMusic: {fileID: 8300000, guid: d497cd3b3c5bfae409f4a9cfd85c78bf, type: 3}
+  volume: 0.5
+--- !u!4 &2082631762
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2082631760}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1164.7084, y: 220.84837, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -4562,3 +4593,4 @@ SceneRoots:
   - {fileID: 1753452630}
   - {fileID: 467418176}
   - {fileID: 1266239404}
+  - {fileID: 2082631762}
