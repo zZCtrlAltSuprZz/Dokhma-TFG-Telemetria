@@ -9848,7 +9848,7 @@ MonoBehaviour:
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 7d72c0020d2173b4baa92bb10d6f210e, type: 3}
       amount: 5
-    maxAliveEnemies: 48
+    maxAliveEnemies: 40
     spawnInterval: 1.4
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
@@ -9861,7 +9861,7 @@ MonoBehaviour:
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 7d72c0020d2173b4baa92bb10d6f210e, type: 3}
       amount: 4
-    maxAliveEnemies: 48
+    maxAliveEnemies: 40
     spawnInterval: 1
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
@@ -9874,7 +9874,7 @@ MonoBehaviour:
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 3cd70d533d161bd429714a64f4e34d98, type: 3}
       amount: 4
-    maxAliveEnemies: 48
+    maxAliveEnemies: 40
     spawnInterval: 0.8
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
@@ -9887,7 +9887,7 @@ MonoBehaviour:
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 4c275d79a12ba4e478244300410e9439, type: 3}
       amount: 5
-    maxAliveEnemies: 56
+    maxAliveEnemies: 40
     spawnInterval: 0.7
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
@@ -9900,7 +9900,7 @@ MonoBehaviour:
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 4c275d79a12ba4e478244300410e9439, type: 3}
       amount: 6
-    maxAliveEnemies: 56
+    maxAliveEnemies: 40
     spawnInterval: 0.5
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
@@ -9913,7 +9913,7 @@ MonoBehaviour:
     - enemyName: 
       enemyPrefab: {fileID: 5537767893191302026, guid: 4c275d79a12ba4e478244300410e9439, type: 3}
       amount: 6
-    maxAliveEnemies: 56
+    maxAliveEnemies: 40
     spawnInterval: 0.4
     maxSpawnDistanceToPlayer: 300
     minSpawnDistanceToPlayer: 0
@@ -11268,7 +11268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   soulsText: {fileID: 1711236667}
-  currentSouls: 0
+  currentSouls: 750
   scoreAnimator: {fileID: 1711236670}
   ingameCanvas: {fileID: 1714256843}
 --- !u!4 &1273453277

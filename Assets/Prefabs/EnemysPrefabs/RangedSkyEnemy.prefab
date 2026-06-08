@@ -1810,7 +1810,7 @@ MonoBehaviour:
   strafeDistance: 6
   repositionInterval: 0.4
   delayAfterLanding: 1
-  attackRange: 25
+  attackRange: 17
   attackCooldown: 2.5
   attackDamage: 1
   projectilePrefab: {fileID: 7121543074761882464, guid: e8199214ef16026449488f0cbbd6c4e5, type: 3}
